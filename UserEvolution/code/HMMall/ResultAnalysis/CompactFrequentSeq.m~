@@ -1,0 +1,35 @@
+K = 7;
+FrequentCompactSeq = [];
+CompactSeq = zeros(size(author_data_cell,3),15);
+WeightCompactSeq = [];
+
+for j = 1:size(author_data_cell,3)
+    seq = path{j};
+    temp = seq([1,diff(seq)]~=0);
+    CompactSeq(j,1:size(temp,2))= temp;
+    timestamp = find(diff([-1 seq -1]) ~= 0); % where does V change
+    temp = diff(timestamp);
+    WeightCompactSeq(j,1:size(temp,2)) = temp;
+end
+
+%CompactSeq = cell2mat(CompactSeq');
+for i = 1:K
+    index = 1;
+    Sequences = [];
+for j = 1:size(author_data_cell,3)
+    if(path_cluster(j) == i)
+            Sequences(index,1:size(CompactSeq(j,:),2)) = CompactSeq{j};
+            index = index + 1;
+    end
+end
+for k = 1:size(Sequences,2)
+     %Sequences(Sequences==0) = [];
+     [M,F,C] = mode(Sequences(:,k));
+     if(size(C,1) > 1)
+         C
+     else
+      FrequentCompactSeq(i,k) = M;
+      %find all the seq which have M value at k
+     end
+end
+end

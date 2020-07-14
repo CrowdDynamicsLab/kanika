@@ -1,0 +1,24 @@
+f = fopen('StackExchangeData/TopPattern.txt','w');
+format ='%s\n %s\n %s\n';
+fprintf(f,format,[mat2str(TopPattern{1,1}),mat2str(TopPattern{1,2}),mat2str(TopPattern{1,3})]);
+fprintf(f,format,[mat2str(TopPattern{2,1}),mat2str(TopPattern{2,2}),mat2str(TopPattern{2,3})]);
+fprintf(f,format,[mat2str(TopPattern{3,1}),mat2str(TopPattern{3,2}),mat2str(TopPattern{3,3})]);
+fprintf(f,format,[mat2str(TopPattern{4,1}),mat2str(TopPattern{4,2}),mat2str(TopPattern{4,3})]);
+fprintf(f,format,[mat2str(TopPattern{5,1}),mat2str(TopPattern{5,2}),mat2str(TopPattern{5,3})]);
+fprintf(f,format,[mat2str(TopPattern{6,1}),mat2str(TopPattern{6,2}),mat2str(TopPattern{6,3})]);
+fclose(f);
+
+f = fopen('StackExchangeData/BottomPattern.txt','w');
+format ='%s\n %s\n %s\n';
+fprintf(f,format,[mat2str(BottomPattern{1,1}),mat2str(BottomPattern{1,2}),mat2str(BottomPattern{1,3})]);
+fprintf(f,format,[mat2str(BottomPattern{2,1}),mat2str(BottomPattern{2,2}),mat2str(BottomPattern{2,3})]);
+fprintf(f,format,[mat2str(BottomPattern{3,1}),mat2str(BottomPattern{3,2}),mat2str(BottomPattern{3,3})]);
+fprintf(f,format,[mat2str(BottomPattern{4,1}),mat2str(BottomPattern{4,2}),mat2str(BottomPattern{4,3})]);
+fprintf(f,format,[mat2str(BottomPattern{5,1}),mat2str(BottomPattern{5,2}),mat2str(BottomPattern{5,3})]);
+fprintf(f,format,[mat2str(BottomPattern{6,1}),mat2str(BottomPattern{6,2}),mat2str(BottomPattern{6,3})]);
+fclose(f);
+
+f = fopen('StackExchangeData/FreqPattern.txt','w');
+format ='%s\n %s\n %s\n';
+fprintf(f,format,[mat2str(FrequentSequences(1,:);
+fprintf(f,format,[mat2str(BottomPattern{1,1}),mat2str(BottomPattern{1,2}),mat2str(BottomPattern{1,3})]);
