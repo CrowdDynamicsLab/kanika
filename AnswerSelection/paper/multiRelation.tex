@@ -1,0 +1,153 @@
+\documentclass[sigconf, anonymous=True, review=True, natbib=false]{acmart}
+%giugk
+
+% Hack to try to make acmart work with biblatex: https://tex.stackexchange.com/questions/37076/is-it-possible-to-load-biblatex-with-a-class-that-has-already-loaded-natbib
+\let\citename\relax
+\RequirePackage[abbreviate=true, dateabbrev=true, natbib=true, isbn=false, doi=false, urldate=comp, url=false, maxbibnames=2,  maxcitenames=1, backref=false, backend=biber, style=ACM-Reference-Format, language=american]{biblatex}
+
+\addbibresource{multiRelation-bib.bib}
+\renewcommand{\bibfont}{\Small}
+
+\usepackage{booktabs} % For formal tables
+\usepackage[hypcap=false]{subcaption}
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage[super]{nth}
+\sisetup{round-mode=places,round-precision=3,table-format=1.2,detect-weight}
+%\usepackage[ruled]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{cleveref}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\lnb}[1]{%
+  \ln\mleft(#1\mright)%
+}
+\usepackage{mleftright}
+\usepackage{bbm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage[flushleft]{threeparttable}
+%\usepackage{boldmath}
+% Copyright
+%\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+\settopmatter{printacmref=false}
+
+%
+% defining the \BibTeX command - from Oren Patashnik's original BibTeX documentation.
+%\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025emb}\kern-.08emT\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+
+\copyrightyear{2018}
+\acmYear{2018}
+\setcopyright{acmlicensed}
+%\acmConference[Woodstock'18]{Woodstock'18: ACM Symposium on Neural Gaze Detection}{June 03--05, 2018}{Woodstock, NY}
+%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection, June 03--05, 2018, Woodstock, NY}
+\acmPrice{15.00}
+\acmDOI{10.1145/1122445.1122456}
+\acmISBN{978-1-4503-9999-9/18/06}
+
+
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+%\renewcommand{\baselinestretch}{0.95}
+
+\begin{document}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\title[]{An Induced Multi-Relational Framework for Answer Selection in Community Question Answer Platforms}
+%\titlenote{Produces the permission block, and
+%  copyright information}
+%\subtitle{Extended Abstract}
+%\subtitlenote{The full version of the author's guide is available as
+%  \text{acmart.pdf} document}
+
+
+\author{Anonymous}
+
+\begin{abstract}
+% This paper addresses the question of identifying the best candidate answer to a question on Community Question Answer (CQA) forums.
+% Most of the prior work predict in isolation of the other answers to a question; furthermore, they ignore the interaction structure among the users of the CQA forums.
+% %The question is challenging since the ``best'' answer is determined in relation to other answers; furthermore, the contextual social graph influences the identification of best answer, such as that between authors answering a question.
+% In contrast to feature-driven methods, we develop a novel induced relational graph convolutional (IR-GCN) framework to address this question. We make three contributions. First, we introduce a novel idea of using strategies encoding different relation types---contrastive, similarity by contrast, and reflexive---to identify best answer. Each strategy induces a graph comprising of cliques on question-answer tuples in the forum. Second, we show how to encode two different label assignment mechanisms---label sharing and determine label based on contrast---within each clique through a Graph Convolutional Network (GCN) architecture.  Finally, we show through extensive empirical results that aggregation via boosting techniques improves learning in our framework.
+% %This is a surprising result since much of the work on neural architectures develops stacking, fusion or aggregator architectures to combine data modalities.
+% We conduct extensive experiments with strong experimental results on 50 communities from StackExchange platform. %On average, our model outperforms state-of-the-art baselines by over 4\% accuracy in identifying quality content on these forums.
+% Our ablation studies show that the contrastive relation is most effective individually than the baselines.
+
+% new text
+
+
+This paper addresses the question of identifying the best candidate answer to a question on Community Question Answer (CQA) forums. The problem is important because Individuals often visit CQA forums to seek answers to nuanced questions.  We develop a novel induced relational graph convolutional network (IR-GCN) framework to address the question.  We make three contributions. First, we introduce a modular framework that separates the construction of the graph with the label selection mechanism. We use equivalence relations to induce a graph comprising cliques and identify two label assignment mechanisms---label contrast, label sharing. Then, we show how to encode these assignment mechanisms in GCNs. Second, we show that encoding contrast creates discriminative magnification---enhancing the separation between nodes in the embedding space. Third, we show a surprising result---boosting techniques improve learning over familiar stacking, fusion, or aggregation approaches for neural architectures. We show strong results over the state-of-the-art neural baselines in extensive experiments on 50 StackExchange communities.
+
+
+\end{abstract}
+
+%\footnote{https://stackexchange.com/}
+%The relational views can vary from the underlying social interaction graph.
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below.
+%
+% \begin{CCSXML}
+% <ccs2012>
+%  <concept>
+%   <concept_id>10010520.10010553.10010562</concept_id>
+%   <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+%   <concept_significance>500</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10010520.10010575.10010755</concept_id>
+%   <concept_desc>Computer systems organization~Redundancy</concept_desc>
+%   <concept_significance>300</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10010520.10010553.10010554</concept_id>
+%   <concept_desc>Computer systems organization~Robotics</concept_desc>
+%   <concept_significance>100</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10003033.10003083.10003095</concept_id>
+%   <concept_desc>Networks~Network reliability</concept_desc>
+%   <concept_significance>100</concept_significance>
+%  </concept>
+% </ccs2012>
+% \end{CCSXML}
+%
+% \ccsdesc[500]{Social Networks~Community Question Answering}
+% \ccsdesc[300]{Computer systems organization~Redundancy}
+% \ccsdesc{Computer systems organization~Robotics}
+% \ccsdesc[100]{Networks~Network reliability}
+
+
+\keywords{Community Question Answering, Graph Convolution, Multi-View Learning, Induced Relational Views}
+
+
+\maketitle
+
+\input{Introduction-v2}
+\input{Preliminaries}
+\input{Motivation}
+\input{model}
+\input{Aggregation}
+\input{Experiments}
+%\input{Discussion}
+\input{RelatedWork}
+\input{Conclusion}
+%\clearpage
+%\bibliographystyle{ACM-Reference-Format}
+%\bibliography{multiRelation-bib}
+
+\printbibliography
+\end{document}

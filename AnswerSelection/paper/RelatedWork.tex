@@ -1,0 +1,32 @@
+\section{Related Work}
+\label{sec:related}
+Our work intersects two research areas; Answer Selection and handling multi-relational social data, primarily via Graph Convolution.
+
+\noindent
+\textbf{Answer Selection}
+In CQA forums, previous answer selection literature includes feature-driven models and deep text models.
+%They either choose the best one from the candidate pool \cite{BurelMA16, TianZL13, JendersKN16, TianL16, CalefatoLN16} or carefully pick several good answers \cite{ZhangLSW17, WuWS18, ShaZQCS18, WenMFZ18, NieWZWGY17, GuoYXYW17, WangL016, WangN15}.
+
+\noindent
+\emph{Feature-Driven Models} in CQA identify and incorporate user features, content features, and thread features, e.g., in tree-based models to identify the best answer. Tian et al. \cite{TianZL13} found that the best answer tends to be early and novel, with more details and comments. Jenders et al. \cite{JendersKN16} trained classifiers for online forums, Burel et al. \cite{BurelMA16} emphasize the Q\&A thread structure.  %Feature-driven models \cite{BurelMA16} develop features from three different perspectives: 1) \emph{User features} from questioner and answerer; 2) \emph{Content features} from question and answer itself; 3) \emph{Thread features} from the relationship within one answer pool.
+
+
+% Feature-driven models \cite{BurelMA16} develop features from three different perspectives: user features, content features, and thread features.
+% These features are fed into classifiers, such as tree-based models \cite{BurelMA16, JendersKN16, TianZL13} to identify the best answer. \citet{TianZL13} found that the best answer is usually the earlier and most different one, and tends to have more details and comments. \citet{JendersKN16} trained several classifiers for online MOOC forums. Different from existing works, \citet{BurelMA16} emphasize on the thread-like structure of Q\&A and introduce four thread-based normalization methods. These models predict the answer label independently of the other answers for the question.
+
+
+\noindent
+\emph{Deep Text Models} learn optimal QA text-pair representations to select the best answer \cite{ZhangLSW17,WuWS18,WangN15}. Feng et al. \cite{FengXGWZ15} augment CNNs with discontinuous convolution for improved representations; Wang et al. \cite{Tan2015} use stacked biLSTMs to match question-answer semantics.
+%\citet{SukhbaatarSWF15} use attention mechanism in an end-to-end memory framework.
+
+
+
+
+%Other later works also use attention networks, such as the hybrid attention model \cite{WenMFZ18}, multi-view attention model \cite{ShaZQCS18}, and interactive attention model \cite{ZhangLSW17}. According to a newest survey \cite{LaiBL18}, deep text models can be classified into three groups based on the structure: Siamese Architecture \cite{FengXGWZ15}, Attentive Architecture \cite{WenMFZ18, ShaZQCS18, ZhangLSW17} and Compare-Aggregate Architecture \cite{Bian0YCL17, TranLHZBB18}.
+
+\noindent
+\textbf{Graph Convolution} is applied in spatial and spectral domains to compute graph node representations for downstream tasks including node classification \cite{gcn}, link prediction \cite{relationalGCN}, multi-relational tasks~\cite{rase} etc. Spatial approaches employ random walks or k-hop neighborhoods to compute node representations \cite{DeepWalk,node2vec,LINE} while fast localized convolutions are applied in the spectral domain\cite{deferrard,duvenaund}. Our work is inspired by Graph Convolution Networks (GCN) \cite{gcn}, which outperforms spatial convolutions and scales to large graphs. GCN extensions have been proposed for signed networks \cite{signedgcn}, inductive settings \cite{graphsage}, multiple relations \cite{DualGCN,relationalGCN} and diffusion~\cite{infvae}. However, GCN variants assume label sharing, which cannot model contrastive relations in our setting.
+
+% Recent approaches learn multiple GCNs for higher powers of the adjacency matrix and motifs \cite{NGCN, MotifGCN}, but do not apply to our setting as we model disconnected cliques.
+\noindent
+\textbf{Multi-Relational Modeling: } While text and feature models treat answer content independently, we focus on integrating multi-relational aspects in the prediction. We identify a few related threads; adversarial approaches to integrate social neighbor data~\cite{adv_social,adv_neighbor}; meta-learning to adapt across data modalities or tasks~\cite{maml}. Different from these directions, we focus on the flexibility and simplicity of our multi-relational graph formulation for modeling user-generated content.

@@ -1,0 +1,102 @@
+\section{Problem Formulation}
+\label{sec:problem}
+% \begin{figure*}[h]
+%     \centering
+%     \begin{subfigure}{0.25\textwidth}
+%         %\centering
+%         \includegraphics[scale=0.2]{figures/MainFigure_gray}
+%         \caption{Contrastive}
+%     \end{subfigure}%
+%     \begin{subfigure}{0.35\textwidth}
+%         \centering
+%         %\includegraphics[width=\linewidth,height=5cm]{figures/drawing}
+%             \includegraphics[scale=0.2]{figures/Similarity_gray}
+%       \caption{Relative Similarity}
+%         \end{subfigure}%
+%         % \begin{subfigure}{0.45\linewidth}
+%         %     \centering
+%         %     %\includegraphics[width=\linewidth,height=5cm]{figures/drawing}
+%         %     \includegraphics[scale=0.275]{figures/Similarity2}
+%         % \end{subfigure}
+%         % \caption{TrueSkill / Arrival Similarity}
+%     %\end{subfigure}%
+%     \begin{subfigure}{0.25\textwidth}
+%         \centering
+%         \includegraphics[scale=0.2]{figures/Reflexive_gray}
+%             \caption{Reflexive}
+%     \end{subfigure}%
+%         \caption{\small \label{fig:relation} Induced data-driven relationship types; Contrastive, Relative Similarity and Reflexive among answers.}
+%     %\vspace{-0.2in}
+% \end{figure*}
+
+In Community Question Answer (CQA) forums, an individual asking a question seeks to identify the most relevant candidate answer to his question. On StackExchange CQA forums, users annotate their preferred answer as ``accepted''.
+%, which we leverage as ground-truth labels.
+
+% \begin{quote}
+%     The goal of this paper is to develop a framework to identify the accepted answer by ranking all answers to a question on a CQA forum.
+% \end{quote}
+
+Let $\mathcal{Q}$ denote the set of questions in the community and for each $q \in \mathcal{Q}$, we denote $\mathcal{A}_q$ to be the associated set of answers. Each question $q \in \mathcal{Q}$, and each answer $a \in \mathcal{A}_q$ have authors $u_q, u_a \in \mathcal{U}$ respectively. Without loss of generality, each question $q$, each answer $a \in \mathcal{A}_q$, user $u_q, u_a \in \mathcal{U}$ have an associated set of features.
+
+Our unit of analysis is a question-answer tuple $(q,a), q \in \mathcal{Q}, a \in \mathcal{A}_q$, and we associate each $(q,a)$ tuple with a label $y_{q,a} \in \{-1,+1\}$, where `+1' implies acceptance and `-1' implies rejection. The goal of this paper is \textit{to develop a framework to identify the accepted answer to a question posted on a CQA forum}.
+
+%Next, we discuss the idea of induced relational views, central to our induced relational GCN framework developed in~\Cref{sec:gcn}.
+
+% Consider the feature sets $\mathcal{X}_a$ for $a \in \mathcal{A}_q$, and $\mathcal{X}_q$ for each question $q \in Q$. Similarly, $\mathcal{X}_{u_q}, \mathcal{X}_{u_a}$ denote the user features of the authors of question $q$, answer $a$. We combine questions with their answers to construct the set of all tuples $(q, a) \in \mathbb{T}$, where $q\in Q, a\in\mathcal{A}_q$. Each tuple is assigned aggregated features $ [\mathcal{X}_q, \mathcal{X}_a,\mathcal{X}_{u_q}, \mathcal{X}_{u_a}]$ with $\mathbf{X}$ representing the aggregated feature sets for all tuples. Let $\mathbf{Y}$ denote the acceptance labels for each $(q, a) \in \mathbb{T}$, $y_{q,a} \in \{ -1, +1\}$, where $+1$ indicates $a$ was accepted for $q$ (other answers to $q$ receive  $-1$).
+
+% Further, we identify the distinctions between the available reviews, and partition them into a few distinct semantic classes (for instance relative similarity can be realized in more than one way using reputation or an alternate metric, these are different views but belong to the same semantic class). Let $\mathbb{S}$ denote a partition of $\mathcal{V}$ where each set $\mathbf{S} \in \mathbb{S}$ denotes a specific semantic subset such as relative similarity. Each semantic subset could contain one or more views representing it.
+%In the contrastive relation, we compare answers in response to the same question, against each other to identify the best one. Thus, the label of an ``accepted answer'' differs from all other answers to the same question. In the similarity relationship, we examine the similarity amongst answers \textit{by the same player} across different questions. Some of these answers will share the same label (e.g. ``accepted'') if she plays in tournaments where \textit{her skill contrast} with the skill distributions of the competitors are similar. In the reflexive relation, we decide on the tournament winner (mi.e. assign a label) without looking at the competition.
+
+%We view the problem of identifying the best answer $a$ amongst the set of answers $\mathcal{A}_q$ to a question $q$ through the metaphor of a tournament, where players provide answers which compete against each other to win, and where players can compete in multiple tournaments. Each question sets up a single tournament.
+
+%Viewed through the lens of the tournament metaphor, there are thus three data induced relationships amongst the answers: contrastive; similar and reflexive.
+%In the contrastive relation, we compare answers in response to the same question, against each other to identify the best one. Thus, the label of an ``accepted answer'' differs from all other answers to the same question. In the similarity relationship, we examine the similarity amongst answers \textit{by the same player} across different questions. Some of these answers will share the same label (e.g. ``accepted'') if she plays in tournaments where \textit{her skill contrast} with the skill distributions of the competitors are similar. In the reflexive relation, we decide on the tournament winner (i.e. assign a label) without looking at the competition. Each induced \emph{view} encodes different relational semantics across the $(q, a)$ tuples. In each view, $(q, a)$ tuples constitute nodes of the induced relational graph, while we add links connecting associated pairs under that \emph{view}.
+
+%In the next section, we operationalize the induced \emph{Contrastive}, \emph{Relative Similarity} and \emph{Reflexive} relational graphs of $(q, a)$ tuples for answer selection.We can operationalize a specific relational \emph{view} in more than one way. For instance, relative similarity can be defined on the basis of different node properties. We thus adopt the abstraction of relational classes, where Contrast, Relative Similarity and Reflexive are distinct \emph{relational classes}.
+
+% Our proposed methods thus adopt the most general abstraction to accommodate diverse semantic classes of induced relational views and multiple relational views within each class.
+
+
+% the skill with the other players is
+
+% will share the same label, if the answer contrasts with other answers
+
+% what is important is how a player property contrasts against the other players
+
+
+
+% We view the problem of automat
+
+% An ``accepted answer'' is a relational property, that is, an answer is declared to be accepted in relation to \emph{all} other answers for the same question.
+
+% Conversely, accepted answers across different questions are likely to share common properties. We can view each forum question $q$ as a tournament with the competing set of answers in the candidate pool $\mathcal{A}_q$ participating in the tournament. This sets up several tournaments (one for each question) and our objective is to identify the winner of each tournament. It is then natural to consider how the winning answers in each tournament differ from competing submissions, and understand the shared properties or similarities of tournament winners with each other. To this end, we induce data-driven relational \emph{links} between $(q, a)$ tuples to resulting in graphs corresponding to the three views.
+
+
+
+% The answer selection problem in Community Question Answer (CQA) forums broadly aims to identify the best answer from a competing pool of candidate answers to each question posted on the forum. "Acceptance" is a proxy for answer-selection on CQA forums, where the user asking the question marks a specific answer as accepted depending on his requirements. In our datasets, the questions on a given CQA forum, $q \in [1,\ldots,Q]$ and the set of answers for each question, $a \in \mathcal{A}_q$ are associated with features $\mathcal{X}_q, \mathcal{X}_a$ respectively, while the corresponding users who author them ($u_q, u_a$) are described by user features $\mathcal{X}_{u,q}, \mathcal{X}_{u,a}$.
+% Each answer is represented by the question-answer tuple $(q, a) \in [1,\ldots,N]$ with the aggregated feature set $[\mathcal{X}_q, \mathcal{X}_a,\mathcal{X}_{u,q}, \mathcal{X}_{u,a}]$. Each $(q, a)$ tuple is further associated with an acceptance label, $y = \{ -1, 1 \}$.
+% %Answer features in isolation are not descriptive and are thus best represented by the question-answer tuple $(q, a) \in [1,\ldots,N]$ with the aggregated feature set $[\mathcal{X}_q, \mathcal{X}_a,\mathcal{X}_{u,q}, \mathcal{X}_{u,a}]$. Each $(q, a)$ tuple is further associated with an acceptance label, $y = \{ -1, 1 \}$
+
+% Selecting ``accepted answers`` is a relational property, that is, an answer is declared to be accepted in relation to \emph{all} other answers for the same question. Conversely, accepted answers across different questions are likely to share common properties. We can view each forum question $q$ as a tournament with the competing set of answers in the candidate pool $\mathcal{A}_q$ participating in the tournament. This sets up several tournaments (one for each question) and our objective is to identify the winner of each tournament. It is then natural to consider how the winning answers in each tournament differ from competing submissions, and understand the shared properties or similarities of tournament winners with each other. To this end, we induce data-driven relational \emph{links} between $(q, a)$ tuples to understand their mutual similarities and dissimilarities and it's impact on answer selection.
+
+% The first induced relation is \emph{Contrastive}. It captures the contrast between the set of answers to a given question (tournament competitiors) to understand how the winning answers differ from their competitors. Second, we measure the \emph{Relative Similarity} of tournament winners to each other, measured by comparing them to other competing candidates. Two winning (or losing) answers are considered relatively similar if they both differ from their competitors in similar ways. Finally, the reflexive (or self) relation judges a candidate answer purely on it's own features and ignores it's relational properties.
+% %Note that the reflexive relational view only contains self-links.
+
+% We thus formulate the answer selection problem as a node classification problem. Each node has a set of its own features along with induced relational links of different views across $(q, a)$ tuples. Unlike prior feature-driven methods, we enable explicit information sharing across the set of $(q, a)$ tuples with the induced links.
+% %We thus formulate the answer selection problem as a node classification problem with two inputs. First, the set of node features for every node, and second the induced relational graphs presenting different views of the set of question-answer tuples and their associations. Unlike prior feature-driven methods, we enable explicit information sharing across the set of question-answer tuples with the induced links.
+% %Also note the semantic differences in the induced contrast relational view and the relative similarity view. Similarity aims to achieve label and feature sharing between nodes that are similar in comparison to their competitiors. On the other hand, the contrast view discriminates features of the accepted answers from competing nodes and inverts their labels.
+
+% In the next section, we operationalize the induced \emph{Contrastive}, \emph{Relative Similarity} and \emph{Reflexive} relational graphs of $(q, a)$ tuples for answer selection. A specific relational \emph{view} can be operationalized in more than one way, for instance relative similarity can be defined on the basis of different node properties. We thus adopt the abstraction of relational classes, where Contrast, Relative Similarity and Reflexive are distinct \emph{relational classes}, while each of them could be operationalized in multiple ways. Our proposed methods thus adopt the most general abstraction to accomodate diverse semantic classes of induced relational views and multiple relational views within each class.
+%Note that this graph based representation of answer selection problem enables information sharing across $(q, a)$ pairs through these induced edges. This explicit information sharing wasn't possible in earlier proposed feature-driven or text-based models for answer selection\cite{}.
+% Thus, we can assume each question to be a round robin tournament where answers compete against each other to sget accepted as shown in Figure \ref{fig:contrast}. We can then use difference between skill of players playing a tournament (\emph{Contrastive}), performance of a player in another tournament with similar players (\emph{Relative Similarity}) and its own skills (\emph{Reflexive}) to predict the tournament winner.
+
+%Formally, each question $q \in [ 1,Q ]$ in the Community Question Answer (CQA) forum has a set of answers $a \in A(q)$. Each question and answer is posted by a user $u_q$ and $u_a$ with user features $X ({u_q})$ and $X({u_a})$ . Each question and answer also has its own set of features $X(q)$ and $X(a)$ respectively. We then represent each question-answer ($q, a$) pair as a node $n$ in the graph $G$ with an accepted label $y \in \{ -1,1 \}$. Each node in the graph has set of features $X({n}) = [X(q), X(a), X({u_q}), X({u_a})]$.
+%
+%The problem addressed in this paper is to find the winner(s) for each tournament. In other words, for each question, select $(q, a)$ pair node(s) to belong to accepted class. For a question $q$, there is a single $(q,a)$ pair of accepted class (as in StackExchange) while rest other pairs are not accepted. However, there could be multiple $(q, a)$ nodes of accepted class per question (as in Reddit) too. We can also consider it as label prediction problem where we assign each node or $(q, a)$ pair with an accepted/non-accepted class.
+
+ %We now discuss use of graph-convolution operations to merge information from the induced neighborhood and proposed induced relationship types between these nodes.
+
+
+%We represent each $(q,a)$ pair as a node and link answers which are competing against each other. This results in a complete graph among all answers for a question as shown in Figure \ref{}. Each question will have a complete graph of its own where number of nodes vary according to the players playing in the tournament i.e. number of answers for the particular question.
+
+%\clearpage

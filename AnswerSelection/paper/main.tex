@@ -1,0 +1,135 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+%\documentclass[runningheads]{llncs}
+\RequirePackage{fix-cm}
+%
+%\documentclass{svjour3}                     % onecolumn (standard format)
+\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\smartqed  % flush right qed marks, e.g. at end of proof
+%
+%
+\makeatletter
+%\def\cl@chapter{\cl@chapter \@elt {theorem}}%bug in class
+\def\cl@chapter{\@elt {theorem}}
+\makeatother
+%
+\usepackage{times}  % DO NOT CHANGE THIS
+\usepackage{helvet} % DO NOT CHANGE THIS
+\usepackage{courier}  % DO NOT CHANGE THIS
+\usepackage[hyphens]{url}  % DO NOT CHANGE THIS
+\usepackage{graphicx} % DO NOT CHANGE THIS
+\urlstyle{rm} % DO NOT CHANGE THIS
+\def\UrlFont{\rm}  % DO NOT CHANGE THIS
+\usepackage{graphicx}  % DO NOT CHANGE THIS
+\frenchspacing  % DO NOT CHANGE THIS
+\setlength{\pdfpagewidth}{8.5in}  % DO NOT CHANGE THIS
+\setlength{\pdfpageheight}{11in}  % DO NOT CHANGE THIS
+
+\usepackage{latexsym}
+\usepackage{bm}
+\usepackage{latexsym}
+\usepackage{balance}  % for  \balance command ON LAST PAGE  (only there!)
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage[super]{nth}
+\sisetup{round-mode=places,round-precision=3,table-format=1.2,detect-weight}
+\usepackage{multirow}
+%\usepackage{color}
+\usepackage{hyperref}
+%\usepackage{natbib}
+\usepackage{booktabs} % For formal tables
+%\usepackage[ruled]{algorithm2e}
+
+\usepackage{comment}
+\usepackage{cleveref}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\lnb}[1]{%
+  \ln\mleft(#1\mright)%
+}
+\usepackage{mleftright}
+\usepackage{bbm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage[flushleft]{threeparttable}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+%\usepackage{url}
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+%\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+%\title{Contribution Title\thanks{Supported by organization x.}}
+\title{An Induced Multi-Relational Framework for Answer Selection in Community Question Answer Forums}
+%
+\titlerunning{Induced Multi-Relational Framework for Answer Selection}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+% \author{First Author\inst{1}\orcidID{0000-1111-2222-3333} \and
+% Second Author\inst{2,3}\orcidID{1111-2222-3333-4444} \and
+% Third Author\inst{3}\orcidID{2222--3333-4444-5555}}
+\author{Kanika Narang \and Chaoqi Yang \and Adit Krishnan \and Junting Wang \and Hari Sundaram \and Carolyn Sutter}
+\authorrunning{K. Narang et al.}
+% % First names are abbreviated in the running head.
+% % If there are more than two authors, 'et al.' is used.
+% %
+\institute{K. Narang, C. Yang, A. Krishnan, J. Wang, H. Sundaram, C. Sutter \at
+              University of Illinois at Urbana-Chamaign \\
+              Urbana, IL, USA
+}
+% \institute{Princeton University, Princeton NJ 08544, USA \and
+% Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
+% \email{lncs@springer.com}\\
+% \url{http://www.springer.com/gp/computer-science/lncs} \and
+% ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
+% \email{\{abc,lncs\}@uni-heidelberg.de}}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+Individuals often visit Community Question Answer (CQA) forums seeking answers to nuanced questions that are hard to address with a textual search. In this paper, we consider the question of identifying the best candidate answer to a question on these forums. We propose a novel approach to leverage the explicit and implicit connections across different questions and answers on the forum via induced relational graph convolutional networks (IR-GCN). We make three contributions. First, we introduce a modular framework that separates the construction of content graphs from the label selection mechanism. We use equivalence relations across content to induce graphs comprising cliques and enable two complementary label selection mechanisms; label contrast, and label sharing, via graph convolutional operators. Second, we show that encoding label contrast in this manner creates discriminative magnification, enhancing the separation between contrasting nodes in the latent representation space. Third, we show a surprising result---applying familiar boosting techniques across our content graphs outperforms the popular stacking, fusion, or aggregation methods for neural architectures. We show strong results over state-of-the-art neural baselines with extensive experiments across 50 StackExchange\footnote{\url{https://stackexchange.com/}} communities.
+%\keywords{First keyword  \and Second keyword \and Another keyword.}
+\end{abstract}
+%
+%
+%
+\input{Introduction-v2}
+\input{Preliminaries}
+\input{Motivation}
+\input{model}
+\input{Aggregation}
+\input{Experiments}
+\input{RelatedWork}
+\input{Conclusion}
+
+%\input{Appendix}
+%\input{Discussion}
+%
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+\small
+\bibliographystyle{splncs04}
+\bibliography{multiRelation-bib.bib}
+
+\end{document}

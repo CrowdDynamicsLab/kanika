@@ -1,0 +1,64 @@
+\section{Introduction}
+%What is the problem and why is it important? Why is it hard?
+
+%A fundamental challenge in ranking user-generated content in social networks is: how to identify relevant content, in response to a query (a search problem); or in response to user behavior (a recommendation problem).
+Individuals often visit Community Question Answer (CQA) forums, like StackExchange, to seek answers to nuanced questions, not readily available on prominent search engines. Due to the proliferation of users and answers, a fundamental challenge in CQA forums remains is to rank and identify relevant answer to the question.
+The problem is hard for two reasons: first, the ``relevant'' answer is determined \emph{in relationship} to other answers to the question; second, the interaction structure among the participants of the forums influences identification of best content.
+
+%The problem is hard for two reasons: first, the ``relevant'' answer is determined \emph{in relationship} to other pieces of answer in the network; second, the interaction structure among the participants of the social network influences identification of appropriate content. The problem is especially crucial to Community Question Answer platforms such as Stack-Exchanges, where individuals visit to seek answers to nuanced questions, not readily available on prominent search engines.
+
+While there are clear connections to well known Learning to Rank problems in the IR community~\cite{LambdaNet, LambdaMart, LearningtoRank}, there is only limited work in the context of identification of ``best answers'' among user-generated answers on CQA forums using relational information. Induced relational views (or graphs) capture the inter-connected structure of user-generated answers with potentially varying view semantics, for instance, a similarity view would seek to cluster similar content. On the other hand, a contrastive view would attempt to connect an answer against other competing submissions. Note that induced contrastive view is distinct from signed graphs where edges are either positive or negative. Signed graph convolution~\cite{signedgcn} gathers the friends and enemies of a given node and computes separate embeddings through feature sharing. This separate convolution does not achieve node feature contrast. Also, signed edges are harvested from curated data, unlike our induced links. Graph attention networks ~\cite{graphattention} also could not learn negative attention weight over neighbors because weights are the output of a softmax operation.
+
+
+Recent work in merging distinct multi-relations between nodes includes work on using Neural techniques on graphs, such as DualGCN~\cite{DualGCN} to capture multiple modalities of the data. The main limitation of the work in Convolutional Networks on graphs is the focus on label sharing among network nodes; a concept that is natural to many problem contexts (e.g., computer vision problems), but problematic in the case of identification of best content that also requires label contrasts across edges of a graph.
+
+
+
+% Identifying credible information in Community QA (CQA) platforms is essential in this age of misinformation and fake news. CQA platforms like Reddit or StackExchange are not just used to answer factual questions but are increasingly also used for open-ended, advice-seeking and reasoning questions. In these scenarios, it becomes non-trivial to identify credible answers.
+
+%who else has worked on the problem? What did they find? This a summary of the critical findings of related work
+% Most of the literature on Answer selection posits it as a classification or learning to rank (LtoR) problem. That is, the prediction is made for each question-answer pair(or question-all candidate answers in case of LtoR) in isolation. They rarely share information of answering user's behavior across the platform.
+
+%what did you do? Here, I explain the algorithm/framework in a precise manner. What exactly is it? Why was it essential to develop it the way you did?
+
+We develop a novel data induced relational framework to address this challenge. The key idea is to use diverse strategies---Contrastive, Similarity by contrast and Reflexive---and operationalize them to \textit{induce} graphs on the question-answer tuples; the induced graph structure depends on the strategy type. The mechanism by which we operationalize the strategy may vary; for example, two answers by the same person across two questions may share the same label, if the individual posting the answer has the similar skill contrast with peers who have also posted answers in response to each of the two questions. We design graph convolutional networks (GCNs) appropriate to each strategy type and then introduce a boosting framework to combine their outcomes. Our Contributions are as follows:
+\begin{description}
+\item[Induced Relational Framework:] We introduced a novel idea of using strategies---Contrastive, Similarity by contrast, Reflexive---to induce semantically different graphs on question-answer tuples in a CQA forums. In contrast, related work typically operates on knowledge graphs with edges of specific relation type (e.g., similarity). The contrastive strategy highlights differences between content. We operationalize similarity amongst answers created by the same individual; we say that two answers are similar when the same individual who created them is different in a precise sense from other peers who have also contributed competing answers. The reflexive strategy is the case when answer is judged on its merit, disregarding competing answers. The impact of this framework lies in its ability to induce strategy-dependent graphs that can be quite different from the underlying social interaction graph.
+  \item[Operationalizing Relational GCN:] We show how to operationalize each strategy type to a Graph Convolutional Network architecture. The related work has primarily focused on architectures that support label sharing among network neighbors. We show that the contrastive GCN and the similarity by contrast GCN are necessary for addressing our problem.
+  \item[Boosted Architecture:]  We show through extensive empirical results that using common boosting techniques improves learning in our convolutional model. This is a surprising result since much of the work on neural architectures develops stacking, fusion or aggregator architectures.
+  %We show empirically that a boosted 4-layer GCN works better than a 12-layer stacked architecture. In fact, these aggregator architectures perform worse than the 4-layer Contrastive relational GCN for StackExchange. We conjecture that induced graphs contain noise since the links amongst nodes are dependent on the data values; stacking results in noise amplification.
+\end{description}
+
+We conducted extensive experiments with excellent experimental results on popular CQA forum---Stack-Exchanges. For our analysis, we collect data from the largest ten communities from each of the five categories until March 2019. We achieved an improvement of over 4\% accuracy and 2\% in MRR for Stack-Exchange datasets on average over state-of-the-art baselines. We also show that our model is significantly more robust to label sparsity compared to alternate GCN based multi-relational approaches.
+
+We organize the rest of this paper as follows. In \cref{sec:problem}, we formulate our problem statement and then discuss induced relations for Answer Selection problem in \cref{sec:motivation}. We then detail the operationalization of these induced relations in Graph Convolution framework in \cref{sec:gcn} and introduce our gradient boosting based aggregator approach in \cref{sec:aggregation}. \Cref{sec:experiments} describes experiments. We discuss related work in \cref{sec:related} and then conclude in \cref{sec:conclusion}.
+% \textbf{Present Work:} In this work, we posit credible answer identification as a graph classification approach where each node is a question-answer (QA) pair and label corresponds to Credible/ Not Credible. Specifically, we use an ensemble of Graph-convolutional networks (GCNs) ~\cite{gcn} where each model encodes a relationship type(contrastive, similarity and identity) across these pairs. Conventional GCNs approximates convolution on feature $x$ with filter $\theta$ as:
+% \begin{equation}
+%  \theta(I_N + D^{-1/2}AD^{1/2})x
+%  \end{equation}
+%  Each convolution hence iteratively transforms and aggregate information from local graph neighborhoods. They inherently encode similarity relationship and is then used for downstream tasks like node classification or link prediction. As GCNs work by smoothing label information from neighbors, the similarity relationship in our context should be strongly correlated with credibility label. Thus, we propose two induced similarity relationships on this QA graph; True Skill Similarity and Arrival Similarity. True Skill Similarity connects pairs where contrasts of answerer's skills with skills of other players answering the same question are nearly identical while Arrival Similarity connects answers where contrasts with the arrival time of other answers to the same question are nearly identical.
+
+%  However, this setup won't work for contrastive relationships like ranking where we maximize the difference between the node, and it's neighbors features. To simulate this, we connect each QA pair to all other candidate QA pairs creating a clique. We then propose \emph{Constrastive} GCN which defines "convolution" operation instead of  the difference between node features and aggregated neighborhood features i.e.
+%  \begin{equation}
+%   \theta(I_N - D^{-1/2}AD^{1/2})x
+% \end{equation}
+
+% %Need to improve
+% Each GCN encoding each relationship is essentially a weak learner which should be combined efficiently to create a strong learner. Recent studies have worked on multi relational graphs with different relations between nodes. Relational GCN ~\cite{relationalGCN} works on knowledge graphs and computes weighted aggregate of each relation representation for a layer while Dual GCN ~\cite{DualGCN} uses two GCNs with one being a strong learner and other as a weak learner. These models, however, assume strong dependence/correlation between different relations as they are coupled closely in the model. But, this may not be true at all times, especially in our case with signed relationships. Therefore, we propose an adaboost based learning algorithm for these weak learners which outperforms proposed architectures defined on multi relational graph. Note that the framework is general enough to be used for multiple learners (or relationship types).
+
+% Overall, the main contributions of this work is summarized as follows.
+
+% \begin{itemize}
+% \item{We propose answer selection in QA forums as a graph labeling problem.}
+% \item{We propose Contrastive GCN framework which can be used for Learning to Rank class of problems.}
+% \item{In addition to that, we also induce similarity relationships for answer selection which helps us leverage information across the platform.}
+% \item{And, finally we propose an adaboost based learning algorithm to merge learners from different relationship types.}
+
+
+% \end{itemize}
+
+% //How different than answer selection as it is subjective discussion forum? Only uses basic set of features, no text features.
+% %a bulleted list of contributions. A contribution is what you showed / did. A contribution has a specific argumentative structure: We showed / developed X; The competition showed / developed Y; We used method / framework A to show / develop X; the contribution is significant because of Z. (One line each).
+
+% Quantitative experimental results; brief introduction of datasets
+%\clearpage

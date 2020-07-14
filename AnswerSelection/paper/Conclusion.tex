@@ -1,0 +1,12 @@
+\section{Conclusion}
+\label{sec:conclusion}
+% We proposed a Graph Convolution based model to solve Answer selection for Community Question Answer platforms. We introduced data induced relationships to capture interaction between different qa pairs in the dataset. Contrastive relation captured difference between an answer and other answers for a question, contrastive similarity linked answers which are significantly different from other answers in skill rating of their answerers or arrival time. Reflexive relationship was introduced to exploit features of the answer itself. We proposed an adaboost based ensemble method to accumulate weak signals from each induced relationship. We also beat state-of-the-art baselines for graph ensemble and answer selection for Reddit and StackExchange.
+% Future work can include exploiting text information to improve prediction or extending our model for semi supervised settings with minimal label supervision.
+
+This paper addressed the question of identifying the accepted answer to a question in CQA forums. We developed a novel induced relational graph convolutional (IR-GCN) framework to address this question. We made three contributions. First, we introduced a novel idea of using strategies to induce different views on $(q,a)$ tuples in CQA forums. Each view consists of cliques and encodes---reflexive, similar, contrastive---relation types. Second, we encoded label sharing and label contrast mechanisms within each clique through a GCN architecture.  Our novel contrastive architecture achieves \emph{Discriminative Magnification} between nodes. Finally, we show through extensive empirical results on StackExchange that boosting techniques improved learning in our convolutional model.
+%This was a surprising result since much of the work on neural architecture focuses on stacking, fusion or aggregator architectures.
+%We conduct extensive experiments with excellent experimental results over the state-of-the-art baselines for 50 communities on StackExchange.
+Our ablation studies show that the contrastive relation is most effective individually in StackExchange. 
+%As part of future work, we plan to fold the evolution of players' skills into our model.
+%include content into the convolutional framework.
+%fold into our model evolution of players skill and .
