@@ -1,0 +1,105 @@
+\section{Quantitative Experiments}
+\label{sec:experiments}
+In this section, we evaluate our model on two different tasks, Future Prediction and Perplexity. We describe the baselines in Section~\ref{sec:baseline} and report results in Section~\ref{sec:tasks}.
+\subsection{Baselines}
+\label{sec:baseline}
+\textbf{Distance G-HMM}: Our first baseline uses the G-HMM clustering model as defined in \cite{HMM2014}. In this baseline, we learn a G-HMM for each user and then cluster the models using distance metric $\delta$, the symmetric KL divergence ($d_{kl}$) between two G-HMMs~\citep{rainier}.
+\begin{align}
+    \label{eq:KL}
+    d_{kl} (\lambda^p, \lambda^q) = \frac{1}{N_p} \sum_{i \in N_p} log \frac{P(X_i | \lambda^p)} {P(X_i | \lambda^q)},
+\end{align}
+
+We use k-medoids clustering; since this method does not give a representative model for each cluster, we additionally learn a G-HMM per cluster.
+For a fair comparison, we set $k$, the number of clusters to be the same as our model.
+
+\textbf{Vector Autoregressive Model (VAR)}: VAR models are used to model multivariate time series data \cite{Ltkepohl:2007}. It assumes that each variable in the vector is a linear function of its own past values as well as other variables. For each user sequence $\mathbf{X_i}$, $j$th session is modeled as,
+\begin{align}
+  \vec{X}_{ij} = A_1 \vec{X}_{ij-1} + \ldots + A_p \vec{X}_{ij-p} + u_j
+\end{align}
+where $A_i$ is \emph{M} X \emph{M} matrix, $u_j \sim \mathcal{N}(0,\,\Sigma_{u}) $ and we set $p=1$ as in first-order Markov models.
+
+\textbf{No Evolution}: In this baseline, we assume that individuals \emph{do not evolve} in their lifespan. This baseline is a simplified version of our model. It assumes that there are different archetypes but that each archetype has only one state. Hence, all sessions of a sequence are generated from a single multivariate Gaussian.
+
+Prior work on activity sequence prediction baselines ~\citep{Yang:2014, Knab2003} deals with discrete data. However, as we represent each session as a continuous vector, these approaches are not directly comparable and adapting them to our problem is nontrivial.
+
+\subsection{Tasks}
+\label{sec:tasks}
+\textbf{Future Activity Prediction}:
+In this task, we predict the future behavior of an individual given her history. We assign the first $90\%$ sessions of each sequence for training and predict the behavior in future sessions (the remaining $10\%$ of the sequence). We first use all the training sessions to learn the parameters of our model. Then, for each sequence, we run the Viterbi algorithm to decode the state assignment of its test sessions, \emph{$t^\prime_i$}. The test sessions of the $i$-th user will have same archetype assignment $c_i$ determined in the training session for that user.
+
+We compute Jensen-Shannon($d_{js}$) divergence between the mean $\mu^{c_{ij}}$ of the assigned state $Y_{ij}$ and the observed vector $X_{ij}$. $d_{js}$ is a symmetric K-L divergence between two vectors. We report the average $\bar{\Delta}$ over all test sessions:
+
+\begin{align}
+    \label{eq:pred}
+    \bar{\Delta} &= \frac{1}{\textit{$|T|$}} \sum_{i \in N, j \in t^\prime_i} d_{js}(\mu^{c_{ij}}, X_{ij}), \\
+    d_{js}(\mu^{c_{ij}}, X_{ij}) & = \frac{1}{2}d_{kl}(\mu^{c_{ij}}, p) + \frac{1}{2}d_{kl}(X_{ij}, p),
+\end{align}
+
+where, $p = \frac{1}{2}(\mu^{c_{ij}} + X_{ij})$ and $d_{kl}$ measures KL divergence distance. For VAR, we use the model learnt on training sessions of  user $i$ to make prediction for her future sessions.
+
+Table \ref{tab:futurepred} shows our results on this task.
+Our model outperforms the baselines for all Stack Exchange datasets with an average improvement of about 32\% and 24\% on the Academic dataset.
+Hence, learning archetypes can also help us to accurately predict an individual's future behavior in the social network.
+
+\begin{table}[tbh]
+	\centering
+\sisetup{
+  round-mode = places,
+round-precision = 2
+}
+		\begin{tabular}{lSSSSS} \toprule
+			Dataset                & {Our Model}& {VAR}& {\shortstack{Distance \\ G-HMM}} & {\shortstack{No \\ Evolution}} \\ \midrule
+			Academic               & 0.2189  &  0.31    &   0.4151  &  0.2941    \\
+			{StackOverflow}       & 0.2289  &   0.3577  & NA  &  0.3715     \\
+			{English}              & 0.187 & 0.29 &  0.26      & 0.31 \\
+			Money                  & 0.186 & 0.52 &  0.32      & 0.32  \\
+			Movies                 & 0.23  & 0.35 &  0.3502    & 0.37 \\
+			CrossValidated         & 0.21  & 0.38 &  0.3260    & 0.35  \\
+			Travel                 & 0.19  & 0.30 &  0.2547    & 0.29  \\
+			Law                    & 0.19  & 0.26 &  0.33      & 0.27  \\ \bottomrule
+		\end{tabular}
+	\caption{\label{tab:futurepred} Average Jensen-Shannon divergence of future sessions using 90-10\% split of each user sequence. Lower values are better. Distance HMM did not converge on StackOverflow dataset.
+   }
+\end{table}
+
+\textbf{Perplexity}
+Perplexity measures how surprised the model is on observing an unseen user sequence. A lower value of perplexity indicates low surprise and hence a better model.
+
+\begin{equation}
+    P_x = - \frac{1}{ \textit{$|T|$} } \sum_{i \in T }  \max_{c \in C}  \left (\log P(\mathbf{X_i^T} | \lambda^{c}) \right )
+\end{equation}
+where, $\mathbf{X_i^T}$ represents a test sequence in Test Set \emph{T}, and $\lambda_c$ represents the parameters of the G-HMM corresponding to the $c$-th archetype. We assign $\mathbf{X_i^T}$ to the archetype \emph{c} with maximum likelihood. Perplexity is then computed as the average likelihood of all test sequences. In general, $P(\mathbf{X_i^T} | \lambda^{c}))$ is bound between [0,1] but as we model continuous data with multivariate Gaussian distribution, probability is computed as a density function and can be $>1$.
+
+Table \ref{tab:perplexity} reports average perplexity after five-fold cross-validation. Note that for this experiment, the model predicts the entire trajectory of a new user. We could not use the regression baseline (VAR) as it is not a generative model and can not predict an entirely new sequence.
+Our model beats best performing baseline by 149\% on Academic and by around 25\% on average for StackExchange communities.
+Hence, our model also effectively predicts the behavior of future individuals joining the social network.
+Note that our model gives negative perplexity values i.e., negative log values. It indicates that the likelihood is more than one due to the Gaussian kernel, as mentioned earlier.
+
+\begin{table}[tbh]
+    \centering
+    \sisetup{
+        round-mode = places,
+        round-precision = 2,
+    }
+        \begin{tabular}{lSSSS}
+            \toprule
+            Dataset         & {Our Model}     & {\shortstack{Distance \\ G-HMM}} & {\shortstack{No \\ Evolution}}  \\ \midrule
+            Academic        & -18.37  & 37.73  & 100.79       \\
+            StackOverflow   & 487.68  & NA           & 678.62   \\
+            English          & 306.38  & 559.6459   & 471.137  \\
+            Money           & 415.853 & 557.686  & 570.509   \\
+            Movies          & 596.10  & 724.15   & 743.73    \\
+            CrossValidated  & 398.442 & 514.7365  & 554.313   \\
+            Travel          & 494.061 & 645.6434  & 666.966  \\
+            Law             & 368.894 & 508.077  & 482.267 \\
+        \bottomrule
+        \end{tabular}
+    \caption{
+    \label{tab:perplexity} Average Perplexity on unseen user sequences after 5-fold cross validation. Lower values are better. Note negative log values are because of continuous densities.
+  }
+\end{table}
+
+\textbf{Discussion:} For future prediction, our model performs better than the VAR model. It shows that modeling cluster of sequences gives a better estimate than modeling each user sequence separately. Also, if we assume no evolution and just cluster users according to their behavior i.e., \emph{No Evolution} model, we obtain worse results indicating that individuals behavior does not stay constant over time.
+Our model also outperforms the similarity distance-based clustering method: Distance G-HMM \citep{HMM2014}, which is also the strongest baseline. It first estimates the G-HMM model for each user sequence and then clusters these models. Estimating model for each sequence can be noisy, especially if the user sequence has a short length. Instead, when we jointly learn G-HMM model parameters and cluster sequences, we learn a better approximation.
+
+\textbf{Full vs. Left-Right Transition Matrix}: We also test our model with unconstrained full transition matrix where users can jump from one state to any other state in the HMM. We obtain slightly better results with this model for the future prediction task. This improvement can be due to more degrees of freedom, but then, it is also computationally expensive to learn. However, our model gives comparable results with much fewer parameters. Also, with full transition matrix, learned states are not interpretable in the context of evolution. As \citet{Yang:2014} and \citet{Knab2003} also noted, forward state transitions accurately models the natural progression of evolution, we thus chose to work with a forward transition matrix.

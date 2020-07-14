@@ -1,0 +1,63 @@
+\chapter{Conclusion}
+\label{chap:concl}
+In this chapter, we summarize the contributions of this dissertation and then discuss avenues of future work of the discussed approaches.
+\section{Research Contributions}
+User behavior modeling lies at the heart of the current intelligent systems to effectively cater to user preferences and needs. To build a comprehensive user model, we need to build models that can simultaneously provide \emph{understanding} of the online behavioral phenomenon and accurately \emph{predict} user behavior. However, it is challenging to achieve both the goals in a single model as accuracy often comes at the expense of interpretability.
+Thus, it creates a dichotomy between creating simpler models that offer a more in-depth understanding of the behavior versus using advanced computational techniques to capture behavioral uncertainties accurately.
+
+In this dissertation, we proposed different perspectives to solve the problem of user behavior modeling in an attempt to resolve this dichotomy. The first perspective deals with proposing \emph{interpretable} models to primarily understand explicit and latent user behavioral characteristics in the online platforms. The second perspective, on the other hand,  focuses on introducing \emph{sophisticated} models to factor in the direct and indirect influences on user behavior.
+There are parallel prediction tasks in the literature pertinent to attribute estimation of user-generated content instead of predicting user behavior directly. Although user behavior remains mostly consistent across the platform and can act as a useful prior, most of the current models ignore the user information.
+Thus, we finally proposed a third perspective focussing on approaches that leverage user behavioral features to improve the estimation of the characteristics of user-generated content. We contributed different approaches to achieve each perspective.
+
+\subsection{Understanding user behavior}
+We proposed two distinct unsupervised approaches that use activity data and textual data to understand user explicit and latent behavioral characteristics.
+
+Firstly in \Cref{chap:evolution}, we proposed an unsupervised G-HMM architecture that models change in user's activity distribution to cluster users with similar evolutionary archetypes.
+Our model identified four different archetypes of research interests evolution for computer science researchers; steady, diverse, evolving, and diffuse researchers. Our interpretable framework enabled us to perform a correlation analysis of the behavior evolution with other covariates. Through that framework, we observed that these archetypes tend to differ in their gender distribution and the awarded grant value. Further, we also used our framework to identify different evolutionary archetypes among StackExchange users.
+
+Thereafter, in Chapter \ref{chap:reliability}, we proposed an unsupervised model that leverages text of the user-provided answers to ascertain user latent behavior--reliability in Reddit. In particular, we modeled aspect-level user reliability and semantic representation of each comment simultaneously in an optimization framework.
+We learned a trustworthy comment embedding for each post, such that it is semantically similar to comments of reliable users on the post and also similar to the post's context. We further use the learned embeddings to rank the comments for that post.
+We experimentally validated that modeling user-aspect reliability improves the prediction performance compared to the non-aspect version of our model. We also showed that the estimated user-post reliability could further identify trustworthy users for particular post categories.
+
+\subsection{Improving user behavioral models}
+Under this perspective, we focused on capturing the influence of homophily on user behavior. Recommender systems are a perfect example of a platform where user's preferences exhibit strong homophily with their friends on the platform. Thus, in \Cref{chap:social}, we modeled the influence of the user's friends on her reviewing preferences in the recommender systems. In particular, we exploited the effect of homophily in the user and item space \emph{both} on user's evolving preferences. In the user space, we experimented with both established social connections, and induced connections based on similar purchasing history. Similarly, in the item space, we constructed item similarity graphs based on frequent co-occurrence and feature similarity.
+
+We developed a novel graph attention network based social aggregation model to capture the effect of the recent history of the user's social connections. Different from existing works, it aggregates the friends' history in a weighted manner. These attention weights are learned separately for each pair of a user and her friend to denote varying influence strength of friends.
+We developed a novel aggregation model for the item similarity graphs too. In contrast to existing work, we learn an attention weight for each similar item and later aggregate information of neighboring items in a weighted manner.
+Modeling homophily in both user and item space outperforms other approaches that exploit homophily of either graph.
+
+\subsection{Leveraging user behavior to improve task performance}
+Finally, under the third perspective, we proposed two distinct mechanisms to incorporate commonalities and disparities in the user behavior into the proposed traditional approaches related to user-generated content to improve task performance.
+
+First, in \Cref{chap:induced}, we induced semantically different graphs among user-generated content based on contrast and similarity in user's behavior. The contrastive relation is especially useful for ranking scenarios. Thus, we evaluated our model on the answer selection task in CQA platforms. We also introduced an extension to the original GCN architecture to model contrast instead of similarity between connected nodes. We also leveraged textual similarity to induce a graph between the user-generated content.
+
+Finally, we proposed a boosted architecture to merge semantically diverse and potentially noisy graphs. We showed through extensive experiments on StackExchange communities that exploiting relationships between the user-generated content improves performance compared to evaluating the content in isolation.
+Our architecture also beats other GCN based baselines proposed for multi-relational graphs.
+
+Next, we worked on joint modeling of user behavioral features with textual features in \Cref{chap:syntactic}. We evaluated our approach on offensive language prediction task on Twitter. We first induced a graph on the words in a tweet using syntactic dependencies between them. These syntactic dependencies are better suited to capture long-range dependencies present in offensive language than sequential models used currently. We proposed a graph convolution (GCN) based classifier that learns powerful text representations using this induced text graph.
+
+We estimated latent user behavior--abusive behavior, i.e., their likelihood of posting offensive text online, from the improved text representations. Further, to capture user homophily in abusive user accounts, we proposed another GCN-based model that propagates these behaviors in their social circle on Twitter. We finally showed that leveraging both text and user behavioral representations is a more robust approach for detecting offensive language online rather than the current approaches that only use text.
+
+\section{Future Work}
+There are multiple avenues of future work that can improve upon the approaches discussed in this dissertation for user behavior modeling.
+
+\emph{Induced graph with user's latent behavior estimation:}
+In chapter \ref{chap:induced}, we used multiple induced graphs based on contrast and similarity in user behavior to rank the answers in CQA forums. While in chapter \ref{chap:reliability}, we estimated the topic-based reliability of the user, and in turn, used that to estimate the best answer in the forum. However, we did not exploit any explicit or implicit relationships between the users on the platform in this work.
+One natural extension is then to incorporate modeling of the user's topic-based reliability in the induced graphs (IR-GCN) approach to improve upon the estimation of the best answer. For instance, in the contrastive graph, the current model establishes a contrast between different answers based on the static aggregated user or answer features. However, the updated model will also take into account the reliability of the answering user on the question's topic to establish the contrast between different answers. This context-based contrast can improve the answer selection task significantly.
+
+\emph{Context-specific edge semantics:}
+In \Cref{chap:induced}, we treated different semantic edges (contrastive, similar contrast, reflexive) independent of each other. Specifically, more often than not, there will be only one kind of edges between two nodes. However, the semantics of the connections between two nodes can depend on the context. For instance, for a recommender system, the key goal could be to show a diverse range of potential items to a user. Thus, we first need to establish a contrast between the items to create a ranked list of potential items the user may be interested in based on her past purchases. However, we may further need to establish similarity between these items based on some context such as price range, quality, aesthetics to show a diverse range of products to the user instead of showing near similar items.
+Similarly, in Reddit, when choosing multiple correct comments for a post, we need to contrast amongst the different comments to rank them. Later, in the ranked comments itself, we may need to cluster these responses based on some attribute similarity like opinions or author demographics.
+
+\emph{Evolving relationships:}
+In all the works discussed in the dissertation, we assume a static nature of the connections for both established and induced connections. However, this may not be true everywhere. Users' behavior change over time, such as their preferences evolve towards a product in an e-commerce platform or their expertise in the CQA platform. Hence, inducing these behavioral connections based on aggregated history is not the optimal solution. These connections should evolve to give an accurate description of the social influence at a given time. Similarly, when estimating the user's latent behavior characteristics such as reliability (\cref{chap:reliability}) or abusive behavior (\cref{chap:syntactic}), more weightage should be given to their recent activity in the platform rather than the distant past.
+
+
+\emph{Automated edge detection:}
+The induced connections used in this dissertation are pre-defined, either based on prior knowledge or domain expertise. However, this could be a limiting factor when working on a novel domain with limited prior knowledge or for problems where establishing a relationship (similarity or contrastive) is time-consuming or computationally expensive. Thus, another interesting future work is to allow the model to detect these connections automatically.
+However, there are chances of increased noise in these automated edges. Thus, the model needs to be updated to counter the increased noise in the graph.
+In this dissertation, we handled noisy induced connections by treating them as weak learners. Another way to model these noisy edges can be as soft edges, i.e., each edge has a certain probability of being a valid edge. These probability values can be embedded in the model that will help to counter the strong signal created through these induced connections currently.
+
+
+\emph{Higher-order relationships}
+Even though we considered relationships with different semantics (contrastive, similarity by contrast, etc.), they are still limited to pairwise relationships. However, it could be helpful to exploit higher-order relationships like motifs (\cite{motifnet, motifbased}) or transitive relationships (such as a friend of a friend is a friend or friend of an enemy is an enemy) (\cite{signedgcn}).

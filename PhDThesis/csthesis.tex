@@ -1,0 +1,201 @@
+\documentclass[tocnosub,noragright,centerchapter,fullpagesingle,12pt]{uiuc_csthesis18}
+
+% Updated version of the ECE department's latex resources
+
+% Use draftthesis for notes and date markings on every page.  Useful when you
+%   have multiple copies floating around.
+% Use offcenter for the extra .5 inch on the left side. Needed with fullpage and fancy.
+% Use mixcasechap for compatibility with hyperref package, which does NOT like all caps default
+% Use edeposit for the adviser/committee on the title page.
+% Use tocnosub to suppress subsection and lower entries in the TOC.
+% PhD candidates use "proquest" for the proquest abstract.
+
+\makeatletter
+
+\usepackage{setspace}
+\usepackage{epsfig}  % for figures
+\usepackage{latexsym}
+\usepackage{graphicx}  % another package that works for figures
+% \usepackage{subfigure}  % for subfigures
+\usepackage{amsmath}  % for math spacing
+\usepackage{amssymb}  % for math spacing
+\usepackage{url}  % Hyphenation of URLs.
+\usepackage{lscape}  % Useful for wide tables or figures.
+\usepackage{booktabs} % For formal tables
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage[numbers]{natbib}
+\bibliographystyle{unsrtnat}
+
+\usepackage{capt-of}
+\usepackage{cleveref}
+\usepackage{comment}
+%\usepackage{algorithm2e}
+\usepackage{etoolbox,siunitx}
+%\sisetup{round-mode=places,round-precision=3,table-format=1.2,detect-weight}
+% \sisetup{separate-uncertainty,
+%          table-figures-uncertainty=2,
+%          table-number-alignment = center,
+%         }
+\usepackage{graphicx}
+\usepackage[chapter]{algorithm}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{setspace}
+
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\lnb}[1]{%
+  \ln\mleft(#1\mright)%
+}
+\usepackage{mleftright}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage[flushleft]{threeparttable}
+\usepackage[super]{nth}
+
+\newcommand{\ours}{FuseRec{}}
+% Uncomment the appropriate one of the following four lines:
+%\msthesis
+\phdthesis
+%\otherdoctorate[2]{DISSERTATION PROPOSAL}
+%\othermasters[abbrev]{Title of Degree}
+
+\title{Modeling effect of evolution and connections to user behavior}
+\title{User latent behavior modeling in an interconnected world}
+\title{User behavior modeling: Towards solving the duality of interpretability and precision}
+\author{Kanika Narang}
+\department{Computer Science}
+\degreeyear{2020}
+
+% Advisor name is required for
+% - doctoral students for the ProQuest abstract
+% - master's students who do not have a master's committee
+\advisor{Hari Sundaram}
+
+% Uncomment the \committee command for
+% - all doctoral students
+% - master's students who have a master's committee
+\committee{Associate Professor Hari Sundaram, Chair\\
+        Assistant Professor Alexander Schwing \\
+        Professor ChengXiang Zhai \\
+        Dr. Chris Brew} % etc.
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COPYRIGHT
+%
+%\copyrightpage
+%\blankpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE
+%
+\maketitle
+
+%\raggedright
+\parindent 1em%
+
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ABSTRACT
+%
+\begin{abstract}
+% Put the abstract in a file called "abs.tex" and it'll be inputted here.
+\input{abs}
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEDICATION
+%
+\begin{dedication}
+% Whatever dedication you want.
+%For those who tend to be forgotten.
+To my parents for their love and support.
+\end{dedication}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACKNOWLEDGMENTS
+%
+% Put acknowledgments in a file called "ack.tex" and it'll be inputted here.
+\begin{acknowledgments}
+\input{ack}
+\end{acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE OF CONTENTS
+%
+\tableofcontents
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INSERT REAL CONTENT HERE
+%
+
+\include{intro_updated}	% for INTRODUCTION in "intro.tex"
+\include{thesis_RelatedWork}
+
+\input{evolution_intro}
+\input{evolution_Model}
+\input{evolution_QualResults}
+\input{evolution_Experiments2}
+\input{evolution_Conclusion}
+
+
+\input{crowdqm-intro1}
+\input{crowdqm-model}
+\input{crowdqm-experiments3}
+\input{crowdqm-discussion4}
+\input{crowdqm_conclusion}
+
+\input{social_Introduction}
+\input{social_method}
+\input{social_Experiments}
+\input{social_conclusion}
+
+\input{induced_Introduction}
+\input{induced_Preliminaries}
+\input{induced_Motivation}
+\input{induced_model}
+\input{induced_Aggregation}
+\input{induced_Experiments}
+\input{induced_Conclusion}
+
+\input{hate_Introduction}
+\input{hate_Method}
+\input{hate_Experiments}
+\input{hate_Conclusion}
+
+\input{conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%
+%\appendix
+%\include{apx}
+
+\backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLIOGRAPHY
+%
+%\bibliographystyle{ieeetr}
+% Put references in BibTeX format in thesisrefs.bib.
+\bibliography{thesisrefs}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AUTHOR'S BIOGRAPHY
+% As of 10/03/2011, Author's Biography or Vita no longer accepted by Grad College
+
+\end{document}
+\endinput

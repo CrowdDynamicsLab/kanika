@@ -1,0 +1,17 @@
+Most previous methods for detecting offensive speech on Twitter rely entirely on the textual content.
+Most of these prior work includes using statistical features like bag-of-words or tf-idf features for automated detection.\citet{wulczyn2017} used character n-gram features for detecting abusive comments in the discussion on Wikipedia pages. On Twitter dataset, \citet{waseem-hovy-2016} used character and word n-gram features along with lexical and users features to detect hate speech. \citet{davidson2017automated} worked with character n-grams on a different Twitter dataset to achieve competitive performance. On the other hand, \citet{nobata} combined n-grams features with linguistic, syntactic, and semantic features. However, they observed that n-gram features are most beneficial for the detection task.
+Even though bag-of-words approaches perform well, they are unable to capture nuanced hate speech as they fail to contextualize the word meanings.
+For instance, depending on the context, the word \emph{gay} can be used to denote either ebullience or sexual preference. Only the latter is a candidate attack.
+
+Recently, deep learning models are also proposed that leverage pre-trained word embeddings such as word2vec \cite{mikolov2013distributed} and Glove \cite{glove}
+to capture aspects of the semantics of the tweets. These models aggregate individual word embeddings in a context-aware manner to compute tweet embeddings and later use them for classification.
+\citet{gamback} and \citet{park2017one} used the Convolutional Neural network to compute the tweet embeddings while \citet{badjatiya2017deep} and \citet{agrawal} showed that Gated Recurrent Units or Long-Short Term Memory networks are useful to compute these embeddings.
+On the other hand, \citet{ziqicnn} used a combination of CNNs and GRU to achieve competitive performance.
+
+The syntactic structure of the text can also be used to help identify the target group and the intensity of hate speech. For instance,~\citet{warner2012} extracts POS-based trigrams such as DT jewish NN to extract hate speech against a specific target, Jews. While, \citet{silva2016} extends it further to look for generic syntactic structures like "I $<$intensity$>$ hate $<$target$>$'.
+The primary difficulty of this work is that the space of possibly relevant rules is too large for an analyst to be confident that the list is truly comprehensive.
+In addition, it verges on the impossible to specify a set of rules that will do a decent job on the endless variety of possible implicit attacks.
+
+A minority of approaches take advantage of non-textual user data in addition to the text.
+\citet{2017improved} added randomly-initialized user embeddings to their RNN model to obtain higher accuracy.
+\citet{qian2018} showed that incorporating intra-user and reinforced inter-user representations significantly improve the performance of their bi-directional LSTM model. However, both of these approaches work on the individual user level and ignore the social influence on their behavior. \citet{mishra2018} captured the social influence in abusive accounts by computing a representation of a user's neighborhood through node2vec features.  The classifier described in \citet{mishra2019abusive} extends the previous paper by computing a user representation from an extended graph of users and tweets.

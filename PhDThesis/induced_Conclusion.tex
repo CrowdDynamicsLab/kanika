@@ -1,0 +1,5 @@
+\section{Conclusion}
+\label{sec:conclude}
+This paper addressed the question of identifying the accepted answer to a question in CQA forums. We developed a novel induced relational graph convolutional (IR-GCN) framework to address this question. We made three contributions. First, we introduced a novel idea of using strategies to induce different views on $(q,a)$ tuples in CQA forums. Each view consists of cliques and encodes---reflexive, similar, contrastive---relation types. Second, we encoded label sharing and label contrast mechanisms within each clique through a GCN architecture.  Our novel contrastive architecture achieves \emph{Discriminative Magnification} between nodes. Finally, we show through extensive empirical results on StackExchange that boosting techniques improved learning in our convolutional model.
+This was a surprising result since much of the work on neural architecture that are strong learners focuses on stacking, fusion or aggregator architectures. However, boosting is traditionally shown to be most effective with weak learners.
+Our ablation studies show that the contrastive relation is most effective individually in StackExchange.

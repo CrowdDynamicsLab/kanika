@@ -1,0 +1,100 @@
+%!TEX Root=cikm2018-evolution.tex
+
+\section{Modeling Evolution Trajectories}
+\label{sec:model}
+In this section, we first introduce our datasets and then formally describe the problem statement followed by our proposed approach.
+
+\subsection{Data Collection}
+\textbf{Academic dataset:}
+We use the Microsoft Academic dataset \cite{Sinha:2015} provided through their Knowledge Service API\footnote{\url{http://bit.ly/microsoft-data}} to study evolutionary patterns of researchers with a focus on Computer Scientists.
+Microsoft Academic Service additionally annotates each publication with the year of publication, publication venue and the CS subfield (out of $35$ identified fields) to which it belongs.
+
+We can only query an individual author's publication history through the Microsoft Academic API, not the whole academic corpus \footnote{There is an older dump of Microsoft Academic dataset \url{https://aminer.org/open-academic-graph} but it is noisy and contained multiple entries for the same authors; however, the online dataset is updated weekly, and API provides the most recent version.}. Thus, we create an unbiased author list by identifying \emph{prominent} scientists from each of the 35 CS subfields. This author data will help us discover the dominant archetypes of change in research interests of researchers, across different subfields. Also, \emph{prominent} scientists usually have a long academic career to notice a change in research interests.
+
+We identify \emph{prominent} authors based on \emph{prestige} of the conference venues in which they publish, in their respective subfield. We use the older dump of Microsoft Academic dataset\footnote{\url{https://aminer.org/open-academic-graph}} to identify \emph{prestigious} conferences for each subfield. We construct a conference-conference citation graph where each conference in our dataset forms a node, and the weighted edges represent inter-conference citation frequency. Specifically, the weight of a directed edge from conference $C_1$ to conference $C_2$ is proportional to the fraction of papers published in $C_2$ cited by papers published in $C_1$. We then use the Pagerank algorithm \citep{ilprints422} on this directed graph and define conference \emph{prestige} as the Pagerank of the corresponding conference-node. After that, we define an author's \emph{prominence} as the weighted sum of the prestige of the conferences (s)he has published in. Here, conference-prestige are further weighted by the fraction of the author's papers published in that venue.
+
+We rank authors in decreasing order of their \emph{prominence} in each of the $35$ CS areas (as annotated by Microsoft API) in the dataset. To get equal representation from all subareas, we then extract the publication history of top $750$ most-prominent authors from each of the subareas in the dataset. Note that authors can be \emph{prominent} in more than one subfield. We then filter unique authors from this set who have at least 15 years of publication history. This filtering is done to get a sufficient span of publication data to undergo evolution in research interests. Further, we restrict our analysis to papers published from 1970 to 2016 to avoid missing data. The resulting dataset consists of records of $4578$ authors with an average publication history of 24.15 years \footnote{This data will be made available upon publication}.
+
+\textbf{Stack Exchange Dataset:}
+Our second dataset consists of activity logs of users of Stack Exchange~\footnote{\url{https://data.stackexchange.com/}}(as of Feb 2017), a popular online question-answering platform.
+In this paper, we work on 7 diverse communities of the platform:
+Stack Overflow, English, Money, Movies, CrossValidated, Travel and Law. These communities have varied sizes and cater to different audiences. For each user, the data contains details about their activities such as posting a question or answer on the community.
+Lastly, to focus on users who have spent enough time in the network to exhibit behavioral changes, we filter users with less than $10$ sessions, and also remove outliers with more than $750$ sessions. Table \ref{tab:datastats} shows the final data statistics.
+
+\begin{table}[tbh]
+ \centering
+ \begin{tabular}{p{30mm} r r r r}
+  \toprule
+  Dataset                 & N       & $\bar{t}$ & $t_{\max}$ & M \\  \midrule
+  Academic       & 4578      & 24.15   & 47     & 6                      \\
+  StackOverflow & 561937    & 47.13   & 750    & 5                      \\
+  English & 3828    & 44.01   & 729    & 5                      \\
+  Money & 873   & 44.41   & 706    & 5                      \\
+  Movies & 678    & 48.40   & 598    & 5                      \\
+  CrossValidated & 3728    & 38.94   & 738    & 5                      \\
+  Travel & 1000    & 56.14   & 736    & 5                      \\
+  Law & 195    & 47.79   & 584    & 5                      \\
+   \bottomrule
+ \end{tabular}
+ %}
+ \caption{\label{tab:datastats}Dataset statistics for the Academic and Stack Exchange datasets. $N$: number of users; $M$: possible actions in each session; $t_{\max}$: maximum session length; $\bar{t}$: mean session length. For authors, $\bar{t}$ is their average career length (in years). }
+\end{table}
+
+
+\subsection{Problem Definition}
+We represent an author's academic life-cycle as a sequence, $\mathbf{X_i}$, comprising of session-vectors, $\vec{X}_{ij}$. We keep \emph{session} as a year-long since most conferences occur annually. Thus, $\mathbf{X_i}$ is a sequence of session-vectors, $\vec{X}_{ij}$, where $j \in \{1, 2, \ldots t_i\}$ and $t_i$ is the number of sessions for an author $i$. In general, lengths of sequences will vary across authors depending on the length of their academic career.
+A session, $\vec{X}_{ij}$, is a vector $\langle o_1, o_2, \ldots, o_M \rangle$, where $M$ denotes number of \emph{area-of-interests} (\texttt{AoI}s). Each element $o_m$ of the vector $\vec{X}_{ij}$, denotes the fraction of papers published in the $D_m$ \texttt{AoI} by the $i$-th researcher during a single $j$-th year. This distribution of research areas of author's publications captures the research \emph{behavior} of the individual in the year.
+
+For defining an \texttt{AoI} of an author, we consider all papers published by the author in her academic life. We identify her primary \texttt{AoI}, $D_1$, as the \emph{first} subfield (out of 35 subfields) in which she publishes \emph{cumulatively} at least $3$ papers in the first 3 years. Usually, an author's $D_1$ is about their Ph.D. dissertation work, and we expect students to \emph{settle} down after a few years. Thus, after identification of $D_1$, hopefully with a steady paper count, we define her secondary \texttt{AoI}, $D_2$, as the subfield in which she publishes at least $3$ papers in \emph{one} year. Similarly, we also define tertiary ($D_3$), quaternary ($D_4$), and quinary ($D_5$) \texttt{AoI}. We do not define \texttt{AoI}s beyond $D_5$ because 80\% of authors do not explore more than $5$ subfields in our dataset. Also, in a given year, if an author publishes fewer than $3$ papers in an unexplored subfield, these papers count towards a sixth dimension \texttt{AoI} called \emph{Explore} (Ex).  \emph{Explore} dimension denotes that the author has started exploring new subfields but are not notable enough to be one of the $D_m$'s ($m \in {[1,5]})$, and indicate a possible shift in research interests.
+
+To summarize, each session is a $6$ dimensional vector ($M=6$), and its elements are fraction of the author's publications in the $5$ $D_m$'s or the $6^{th}$ \emph{Explore} dimension. This normalized session representation allows our model to discover behavioral patterns of the author's changing research interests in a domain-independent manner. For example, in a given year, the session-vector for an author who publishes 3 papers in theory ($D_1$; primary area) and 1 paper in graphics ($D_2$; secondary area), and the session-vector for another author who publishes 3 and 1 papers in NLP ($D_1$; primary area) and ML ($D_2$; secondary area) respectively will be exactly same: $X_{ij} = \langle 0.75, 0.25, 0, 0, 0, 0\rangle$. Notice that normalization does not change the rate at which a specific author decides to switch domains and is also invariant to subarea publication norms (\cite{Way:2016} observed productivity rates differ by subfield in DBLP).
+
+Similar to Academic data, for StackExchange communities, we represent each user by a sequence, $\mathbf{X_i}$, of session vectors. We split the activity-sequence of a user into sessions using a time threshold similar to session definitions in web search~\citep{Narang:2017}. Specifically, we create a new session if the difference between two consecutive activities is more than 6 hours. A gap longer than this marks
+a new visit to the community. Hence, a session is a subsequence of the user's activity-sequence and is formally represented as a distribution over the $M$ possible activities; where its $m^{th}$ element represents the fraction of total activity spent in the $m^{th}$ activity in that session. Note that Stack Exchange allows $M=5$ different activities : post a \textbf{Q}uestion; \textbf{A}nswer a question;
+\textbf{C}omment on a question or an answer; \textbf{E}dit operations like assign tags, edit body or title of a post; and \textbf{M}oderator operations like voting.
+
+
+The problem then addressed in this paper is to associate an \emph{archetype} with each
+user's sequence.
+We assume that there exist $C$ different archetypes, and given a sequence of session-vectors for an
+user $\vec{X}_i = \{\vec{X}_{i 1}, \ldots \vec{X}_{i t_i} \}$, the goal is to assign the sequence to one of the $C$ \emph{archetypes}---each associated with a set of $K$ latent \emph{behavioral stages}. During this assignment, we also identify how the individual evolves through its archetype's distinct stages by outputting the sequence $Y_i = \{Y_{i 1}, Y_{i 2} \ldots Y_{i t_i} \}$, where $Y_{i j}$ represents the behavioral stage $k \in [1,K] $ assigned to $j$-th session in individual $i$'s sequence. We constrain the number of stages $ K \ll t_i$ and allow skipping of stages while disallowing return to earlier stages.
+
+\subsection{A Framework for Identifying Archetypes}
+\label{subsec:GHMMCluster}
+We use a Gaussian-Hidden Markov Model (G-HMM) based approach to model individual behavior.
+In our model, latent states of the G-HMM capture the \emph{stochastic regularities} in behavior while Gaussian observations enable \emph{variations} in the session-vector distributions (instead of fixed observations in vanilla HMM). Thus, a G-HMM captures an archetype with all individuals belonging to the archetype, going through the same set of \emph{behavioral stages} or latent state. Note that G-HMM allows for skipping states and variable evolutionary rates among individuals.
+To capture broad variations amongst individuals, we learn a set of  $C$ G-HMMs where each G-HMM represents a distinct archetype. We jointly learn the partitioning of the individuals into different archetypes and the model parameters for each archetype.
+
+Each Gaussian HMM, associated with an archetype $c$, has $K$ discrete latent states or \emph{behavioral stages}. The model makes a first-order Markovian assumption between state transitions using the transition probability matrix $\mathbf{{\tau}^{c}}$; where $\tau_{kl}^{c}$ represents the probability of transitioning from stage $k$ to $l$ in the $c$-th archetype. The prior probabilities of the latent states are represented by the $K$ dimensional vector $\pi^{c}$. Lastly, the model assumes that given a latent behavioral stage, $k$, from an archetype $c$, the $M$ dimensional session vector, $X_{ij}$, is Normally distributed with mean $\mu_{k}^{c}$ and covariance $\mathbf{{\Sigma}_k^{c}}$. The mean vector $\mu_{k}^{c}$ essentially encapsulates the typical behavior exhibited in the k-th \emph{behavioral stage}.
+
+In the above model, the G-HMM associated with different archetypes do not share latent states. In other words, each G-HMM has its own set of discrete latent states.\footnote{ Experiments with tied-states of archetypes led to worse results.} However, we fix the number of states ($K$) to be the same for each archetype.
+
+\textbf{Encoding Experience \& Variable Evolutionary Rates: }
+To encode the idea of experience, as well as to allow variable evolutionary rates, similar to~\cite{Yang:2014} and \citep{Knab2003}, we allow only forward state transitions (including self-loop) within a G-HMM that represents an archetype. This choice appears sensible to us since semantically, each latent state of the G-HMM represents a \emph{behavioral stage} of evolution, and its corresponding mean vector encapsulates \emph{behavior} in that stage. Then, forward transition captures \emph{progression} through \emph{behavioral stages}. We operationalize this idea by restricting the state transition matrix to be an upper triangular state transition matrix.
+
+\begin{algorithm}[tbh]
+ \caption{Gaussian HMM archetype}\label{euclid}
+ \begin{algorithmic}[1]
+ \State \textbf{Input:} $\vec{X_i}$ and $\mathbf{\lambda^c_0}$ $\forall i \in \{1, 2, \ldots N\}$ $\forall c \in \{1, 2, \ldots C\}$\;
+ \State \textbf{Output:} $\vec{Y_i}$ and $\mathbf{\lambda^c}$ $\forall i \in \{1, 2, \ldots N\}$ $\forall c \in \{1, 2, \ldots C\}$\;
+ \State Initialize the $c^{th}$ archetype with initial parameters, $\mathbf{\lambda^c_0}$ $\forall c$\;
+ \While{ not converged}
+  \State \textbf{M-Step:} Re-assign archetypes to sequences $\mathbf{X_i}$ as: \\
+  $c_i$ =  $argmax_{c} P(\mathbf{X_i} | \mathbf{\lambda^c})$ $\forall i \in \{1, 2, \ldots N\}$\;
+  \State \textbf{E-Step:} Re-estimate the G-HMM parameters, $\mathbf{\lambda^c} \forall c \in \{1, 2, \ldots C\}$, using modified Baum-Welch algorithm.\;
+\EndWhile
+ \State \textbf {Convergence Criteria}\;
+ \begin{itemize}
+   \itemsep0em
+  \item Log Likelihood difference falls below threshold; or\
+  \item Number of iterations is greater than threshold; or\
+  \item Number of sequences re-assigned in an iteration is less than 1\% of the data\
+ \end{itemize}
+ \end{algorithmic}
+\end{algorithm}
+
+\textbf{Training:} We train our G-HMM cluster model using a (hard) Expectation Maximization~\citep{Dempster:1977} based iterative procedure described in Algorithm~\ref{euclid}. During training, the goal is to learn the G-HMM parameters, $ \mathbf{\lambda^c}$, for each archetype $c$, where $\mathbf{\lambda^c} = \langle\mu^c, \mathbf{\Sigma^c}, \pi^c, \tau^c \rangle$ and archetype assignments for each user, $c_i$. We first initialize the Gaussian HMMs with initial parameters, $ \mathbf{\lambda_0^1}, \mathbf{\lambda_0^2}, \ldots, \mathbf{\lambda_0^C}$. After that, in the iterative training process, in the Expectation step, we use current estimates of $\mathbf{\lambda^c}$ to assign an archetype to each user sequence in the data. In the Maximization step, we use current archetype assignments to learn the corresponding G-HMM's parameters, $\mathbf{\lambda^c}$. We use a modified version of the Baum-Welch algorithm~\citep{Rabiner:1990}, allowing for forward-only transitions. Thus, this method jointly partitions the input sequences into different archetypes as well as learns the parameters of the associated G-HMMs.
+
+\textbf{Implementation Details: }
+Our iterative training procedure requires initialization for G-HMM parameters, $\mathbf{\lambda^c_0}$. We perform k-means clustering on all sessions of all user sequences in our corpus, treating the sessions as independent of each other (thus losing the sequential information). The cluster centers, thus obtained are used as the initial means, $\mu^c_0$, for the latent states. We fix each $\Sigma^c_k$ as an identical diagonal covariance matrix $\sigma I$ with $\sigma = 0.01$ based on preliminary experiments. We initialize transition matrices, $\tau^c_0$, and states' prior probabilities, $\pi^c_0$, for each archetype randomly.
+Our implementation is based on Kevin Murphy's HMM Matlab toolbox~\footnote{\url{bit.ly/hmmtoolbox}}. Also, we implement a parallelized version of our EM algorithm to reduce computation time. We test our model on Intel Xeon Processor with 128 Gb RAM and a clock speed of 2.5 GHz.

@@ -1,0 +1,130 @@
+\chapter{Introduction}
+\label{chapter:introduction}
+
+The boom in Artificial Intelligence (AI) research in the past few decades has led to the creation of intelligent machines; machines that can think and act like humans. This advancement has given rise to the assimilation of AI into our life inadvertently in the form of socio-technical systems around us. These intelligent systems provide self-paced learning in the education sector \cite{education}, enable targeted marketing in e-commerce websites \cite{targeted}, facilitate personalized medicare unique to patient's body type, genetics, and lifestyle \cite{medicine} to even predicting repeat crime incidence for convicts requesting bail \cite{bail}. The success of these intelligent machines lies in the fact that they can provide personalized solutions at scale and often with high precision rivaling those of humans.
+
+%At the heart of all of these intelligent machines lie modeling and understanding complex human behavior.
+%and the multitude of factors affecting it.
+Modeling and understanding complex human behavior lies at the heart of the personalization extended by these intelligent machines.
+User behavior is characterized by the interactions or activities performed by the user on the specific platform. For instance, in a recommender system, activities denote items reviewed by the user. Similarly, in a Community Question Answering (CQA) forums like StackExchange or Reddit, these activities are defined as posting questions or answers, or voting on other people's answers.
+%These platforms then train a model based on the past activities of the user in the platform to predict
+%More than ever before, we have abundant user interaction data available to us due to the close intertwining of the technology with our lifestyle.
+Due to the close intertwining of the technology with our lifestyle, we have abundant user interaction data available to us now, more than ever before.
+%Modeling each user's behavior in a platform is a powerful tool to provide a highly individualized user experience
+Artificial Intelligence, or specifically user behavior modeling, sifts through vast amounts of past user data to find recurring patterns and predict user's future purchases, search intent, or information need. However, many challenges remain still open to effectively model user behavior and the multitude of factors affecting it.
+
+Most of the prior work on user modeling deals with aggregated or categorical interaction features like product ratings or activity data to characterize user behavior. However, users are interacting with these platforms much more extensively and producing massive amounts of multimodal data such as text, video, speech, etc. User-generated textual data is the most popular form of interaction among them and is prevalent on multiple platforms in the form of reviews in e-commerce websites, questions, or answers text on CQA forums, tweets, or posts on social media platforms like Twitter or Facebook.
+
+Textual data is more complex and sophisticated to comprehend than discrete activity-based features. Nevertheless, analyzing textual data opens the door to understanding the extensive and latent characteristics of user behavior that were not even possible to comprehend with aggregated features. For instance, the content of user reviews can be used to learn user affinity to different aspects of the product, such as relative importance of different aspects-food, service, location of a restaurant for a particular user.
+Similarly, the content of the user's answers or questions in a CQA forum can be used to discern latent features like the user's preferable topics to answer or their expertise for different topics. Previously too, understanding the content of user's tweets or posts has led to an improved understanding of user's political leanings \cite{political}, state of their mental health \cite{mentalhealth}, and much more. Thus, it is imperative to leverage user-generated content to create a comprehensive understanding of user behavior.
+
+Furthermore, humans are social beings and typically do not operate in isolation. %Their behavior is often influenced by their friends, peers, or in general, other humans with a similar background (demography, preferences, etc.).
+A user's friends, peers, or in general, other users with a similar background (demography, preferences, etc.) often influence their behavior.
+These influences also manifest themselves in many of the current online platforms due to their prevalent social structures. Connected users, i.e., users with established trust or friend relationships on these platforms, exhibit similar behavior, a phenomenon popularly known as user homophily \cite{Tang:2009}.
+
+Apart from explicit social connections, users tend to get affected by users with a similar background when making decisions on these platforms. For instance, a user may trust movie recommendations of another user with a similar demographics (same age or gender). Similarly, an Indian user may trust the ratings of another Indian user more than a non-Indian user when reviewing an Indian restaurant. Thus, it is crucial to capture these implicit influences %by establishing similarity links
+between users which are alike based on more general notions of similarity, such as demographic attributes or activity distribution in the platform. %Although these induced connections will be noisier than explicit connections,
+Although capturing this implicit influence will be more difficult than explicit influence, they can provide essential cues for users with \emph{few} social connections. They can also be particularly helpful in online platforms with no established social structure. For instance, in review platforms or CQA forums, explicit social connections are either not present or very sparse.
+%Thus, modeling the influence of explicit social connections on user behavior proves to be challenging in such platforms.
+
+Another major limitation of the current approaches modeling user-to-user influence is that they assume \emph{similar} behavior (user homophily) between connected users. This assumption may not be valid everywhere, especially when the model needs to establish differences between user behavior. One most common application where establishing contrast can be useful are ranking applications. These applications can include ranking answers to a question given by different users based on their credibility. An alternate application can be to curate a list of potential item recommendations for a user, different from other contrasting users' past purchases. Thus, there exist inherent similarities and contrast in users' behaviors which should be captured to create a better model of user behavior.
+
+%Besides, as each user's behavior evolves, the social influence is also dynamic. Nevertheless, most of the existing models either ignore the social influence or model influence based on the whole history of interaction data.
+
+Finally, it is also vital to create an interpretable model of user behavior so that we can gain an in-depth understanding of the changes in behavior and its effect on other extrinsic features. For instance, changes in the posting pattern of a StackExchange user may affect the upvotes their answers get, and subsequently, their activity level in the platform. Another interesting application can be the variation in the amount of research grants awarded to scholars with a change in their publication behavior.
+
+
+Motivated by the challenges mentioned above, in this dissertation, we focus on the following two specific questions related to user behavior modeling,\\
+
+\noindent
+Q1: \emph{How can we exploit user-generated content to understand user's latent behavioral characteristics?}\\
+
+\noindent
+Q2: \emph{How can we model the explicit and implicit user-to-user influence on a user's behavior?}\\
+
+
+%In this dissertation, we learn a \emph{user representation} encapsulating their latent behavior from user-generated content.
+In order to capture user \emph{latent behavior}, we learn a dense \emph{user representation} from user-generated content encoding their latent behavior (\cref{chap:reliability}).
+Effective representation learning of text (word embeddings) is a popular research direction for the past couple of years \cite{mikolov2013distributed, glove, devlin2019bert}. These pre-trained embeddings capture the semantic meanings of the words and help in word disambiguation.
+We aggregate these text embeddings of user-generated content to create a powerful representation of user behavior.
+%Specifically, an effective representation of user behavior is created by aggregating text representations of user-generated content.
+
+We capture the implicit social influence, measured either through similarity or contrast in users' behaviors, by inducing connections between them. These connections enable information sharing among connected users resulting in an improved model of their behavior. To the best of our knowledge, no work models these regularities between user behavior explicitly through \emph{induced} connections.
+
+In this dissertation, we use \emph{Graph Convolution Networks} \cite{gcn} to model both explicit social connections and induced connections between users.
+%Specifically, we use  to model the social influence on user behavior.
+%large scale user connections effectively and efficiently.
+Graph Convolution Networks (GCNs) is a recent class of neural networks that learns node representations in graph-structured data. Specifically, the model aggregates representations of the node itself, along with its neighbors, to compute a node representation. The model is very efficient with parallel batch processing and sparse computations. Thus, it can scale to large scale user graphs present on online platforms.
+
+In the online platforms, a user's friend circle tends to be of a large scale; however, all of them do not exert the same influence on the user. Thus, we employ edge sampling along with attention on the edges to reduce noise in the large scale social graph (\cref{chap:social}). On the other hand, induced connections tend to be noisy with potentially many irrelevant connections. Thus, to handle noise in the graph edges itself, we use boosting where each graph acts as a weak learner (\cref{chap:induced}).
+Additionally, %apart from inducing connections between users based on their feature similarity,
+we also induce connections between users based on similarity in their latent behavior, i.e., user representations learned by our model. We also induce a graph on the content to learn an improved text representation, which we subsequently use to learn user latent behavior(\cref{chap:syntactic}).
+
+
+%\newpage
+\noindent
+\section{Thesis Outline}
+%We propose to address all the limitations mentioned above in this thesis. In the following, we briefly detail our approaches to address each of these challenges described in each chapter.
+The rest of the dissertation is organized as follows;
+firstly, \Cref{sec:related} discusses prior literature related to user behavior modeling and text representation approaches in different platforms such as online social networks, recommender systems, etc. %and scholarly data.
+%We also discuss prior text representation approaches proposed for CQA forums and Twitter.
+We also provide a brief overview of Graph Convolution Networks used for modeling graphs in these domains.
+
+In \Cref{chap:reliability}, we leverage the content of the user's answers in Community Question Answering (CQA) platforms to learn latent characteristics of user behavior, i.e., \emph{user latent reliability}. We use this latent behavior to solve the task of ranking answers of a given question based on its trustworthiness. This ranking is especially important as most of the responses in CQA forums contain conflicting and unreliable information due to almost no regulations on post requirements or user background. This misinformation severely limits the forum's usefulness to its users.
+We propose an optimization framework to learn the latent characteristic of user behavior--reliability and latent characteristic of answers--trustworthiness in a mutually reinforcing manner.
+In particular, our model learns user reliability over fine-grained topics discussed in the forum. Besides, we also learn the semantic meaning of comments and posts through text representations or word embeddings.
+User reliability is then estimated through semantic similarity of user's answers to the most trustworthy answer measured through these learned text representations.
+
+
+Next, in Chapter \ref{chap:social}, we propose to incorporate the effect of \emph{social influence} on the user's behavior in a recommender system. Recommender systems are a perfect example of a platform where user's preferences exhibit strong homophily with their friends on the platform. In this work,
+we exploit homophily in both user and item space.
+In the user space, apart from a user's explicit social connections in the platform, we also induce connections between users with similar purchasing history.
+In the item space, we construct a 'social graph of items' based on similarity in item features and co-occurrence in the dataset.
+These implicit similarity connections between items help the model to handle data sparsity in items (long-tail items, i.e., items with limited training data).
+%We use separate modules to model different factors: (1) a user-temporal module capturing her historical interactions, (2) a user-social module capturing influence from user's explicit and implicit social connections, and (3) an item-similarity module capturing similarity between similar items.
+We propose a novel graph convolution network (GCN) based aggregation models to estimate social influence in both user similarity and item similarity graphs. Besides, we also learn attention weights for each pair of connected nodes to model varying influence strengths on the behavior. It is worthwhile to note that the GCN model for the user graph deals with dynamic user features while the item graph deals with static item features.
+
+%\emph{Induced Semantically Diverse Relations:}
+%Multi-Relational Semantically Diverse :}
+Later, in \Cref{chap:induced}, we remove the limitation from the preceding chapter on the similarity between connected nodes to include multiple \emph{semantically diverse} connections. The induced connections can be particularly beneficial in platforms with no explicit social structure like CQA platforms.
+Specifically, we induce connections based on both similarity and contrast between users' behavior (answers) to improve the answer selection task in CQA forums.
+We induced a contrastive graph between users answering the same question and a similarity graph between users exhibiting similar behavior but answering different questions. We specifically propose a modification to the original GCN to encode the notion of contrast between a node and its neighborhood.
+We also use state-of-the-art text representation learning approaches to compute representation for the user's answers and questions. These latent representations are subsequently used to induce connections between users.
+Finally, multiple graphs expressing diverse relationships are merged through an efficient boosting architecture to predict the best answer.
+
+%\emph{User Latent Behavior Modeling with Social Influence:}
+Thereafter, in \Cref{chap:syntactic}, we work on joint modeling of \emph{latent user behavior} representation with \emph{social influence} to detect the offensive language in tweets. Abusive behavior is rampant online and is affecting the experience of a large number of users on the platform. Hate attacks are often expressed in a complex manner in text (long clauses or complex scoping), thus, can not be captured by traditional sequential neural models.
+In this work, we learn an improved text representation of the tweets %beneficial to identify hate attacks in the text.
+by leveraging syntactic dependencies between words.
+We achieve this by inducing a graph on the words of a tweet where edges represent a dependency relationship. We use these representations subsequently to estimate a user's latent abusive behavior, i.e., their likelihood of using offensive language online.
+Further, to capture homophily in abusive user accounts, we propagate this latent behavior through the user's social graph on Twitter using GCN. These user behavior information, in addition to the improved text representation of the tweet, dramatically improves the performance of offensive language detection models.
+%We further use GCN on this induced content graph to compute an efficient textual representation of each tweet.
+
+%\textit{Undestanding User Behavior:}
+Finally, in Chapter \ref{chap:evolution}, we propose a model to identify users with \emph{similar behavioral evolutionary patterns} instead of static behavior.
+Individuals evolve with experience in large social networks. Thus, it is limiting to compute similarity in user behavior based on static aggregated behavior. We introduce an interpretable Gaussian Hidden Markov Model (G-HMM) cluster model to identify archetypes of evolutionary patterns among users.
+Specifically, we apply our model to discover archetypical patterns of research interests' evolution among Academics and change in activity distribution of users of Stack Exchange communities. Our model allows us to correlate user behavior with external variables such as gender, income, etc.
+
+We conclude and discuss avenues of future work in \Cref{chap:concl}.
+
+
+
+
+\begin{comment}
+%Talk about why user modeling is necessary \\
+With the advent of the proliferation of online platforms, there is a growing demand for providing a personalized experience to users to improve their experience and increase user engagement. The effect of personalization is ubiquitous and is evident in the results of the search queries posted in a search engine, recommendations on what to watch next in a video streaming service, or suggested questions or answers in a community question and answer forum. However, more often than not, this personalization is performed based on macroscopic user properties like geographical location, gender, or age group. This aggregated personalization proves to be a useful tool in instances with a lack of user's historical data. However, with the increase in the necessity of creating individual user accounts in the online platforms, there are abundant online traces available for every user on a platform or website.
+
+\textbf{Limitations}: However, most of the current approaches modeling user behavior suffer from an array of limitations as they make certain assumptions.
+\begin{itemize}
+    \item \emph{Behavior Evolution}: User preferences usually evolve with time, and history from a recent past is not useful to predict current user preferences. However, most of the earlier work assumes static preferences and use all the historical user interactions to model user behavior.
+    \item \emph{Social Influence}: Due to the prevalent social structure of current online platforms, user behavior is often influenced by behavior of their social connections, an idea popularized by social influence theory \cite{Tang:2009}. These connections are generally explicit, for instance, established trust or friend relationships. Besides, as each user's behavior evolves, the social influence is also dynamic. Nevertheless, most of the existing models either ignore the social influence or model influence based on the whole history of interaction data.
+    \item \emph{Implicit Social Influence}: Despite the popularity of online social platforms, there are platforms where explicit social connections are either not present or very sparse, such as review platforms or CQA forums. Thus, modeling the influence of social connections on user behavior proves to be difficult. Further, current approaches assumes similarity between connected nodes that may not be true in all cases. %For instance, contrasting relationship between users giving answers to a question to predict best answer or
+    Despite of the lack of explicit connections, there exist inherent similarities and contrast in users' behaviors that can be used to induce implicit connections between them.
+    %These connections can improve performance by sharing information among connected users to aid user behavior modeling.
+    These connections enable information sharing among connected nodes resulting in an improved model of user behavior.
+    However, to the best of our knowledge, there is no work that models these regularities between user behavior explicitly through induced connections.
+    \item \emph{Latent User Behavior}: Most of the work on user modeling deals with aggregated or categorical features like product ratings or activity data to characterize their behavior. However, most of these platforms also contain other rich features like user-generated textual data that is more complex and sophisticated to comprehend. Analysing the textual data can help us to estimate detailed and latent characteristics of user behavior that is not possible to model with aggregated features. For instance, content of user reviews can be used to learn user preferences for different aspects of the product independently. Similarly, content of user's answers or question in a CQA forum can be used to learn user reliability or their topical preferences.
+
+\end{itemize}
+
+\end{comment}

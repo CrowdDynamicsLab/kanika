@@ -1,0 +1,25 @@
+In the following section, we provide a brief review of approaches that model users' historical interactions to improve recommender systems. We first enlist approaches assuming static user behavior (Collaborative Filtering). Consequently, we review approaches that model the evolution of user behavior (Temporal Recommendation), social influence (Social Recommendation), and few recently proposed methods which are looking at combining the two (Socio-Temporal Recommendation).
+
+\noindent
+\emph{Collaborative Filtering:}
+Collaborative Filtering (CF) is one of the most popular techniques for user modeling in recommender systems.
+Specifically, the methods employ Matrix Factorization (MF) to decompose a user-item rating matrix into user and item specific latent factors.
+Classical and seminal work for MF-based recommender systems~\cite{Rendle} uses a Bayesian pairwise loss (BPR). Collaborative filtering is also performed in item space~\cite{itemCF}, where similar items are computed offline based on their rating similarity or co-occurrence in the dataset. Consequently, it recommends items similar to the ones used in the past by the user.
+Neural net approaches have been proposed recently to improve MF models. They learn more complex non-linearities in the user-item interaction data~\cite{NeuMF, CDAE}.
+
+However, most MF approaches assume a static user-item interaction matrix. Often, this assumption is not accurate, particularly for online communities where user preferences evolve over time --- sometimes quickly --- necessitating temporal recommendation.
+
+\noindent
+\emph{Temporal Recommendation:}
+There has been significant work in the area of temporal recommender systems that model a user's past interactions to inform a user's current preference. These temporal models generally assume a linear relationship between the events and model it using a Markov chain~\cite{FPMC, Rendle2}. However, these are often `shallow' (i.e., linear) methods that are inept at modeling the more complex dynamics of temporal changes. Recent works~\cite{Sun:2018, Cai:2017, SAS:2018} use deep net approaches involving convolution layers, attention networks, and recurrent neural nets to model complex relations. For example,~\citet{Caser} applies convolutional filters on the embedding matrix computed from a few recent items of a user. This model captures a higher-order Markov chain, but it still has a limited scope as it does not consider the entire history of a user.
+In contrast, to model long term dependencies,~\citet{GRU4Rec} propose to model a user's sequential behavior within a session using recurrent neural nets. \citet{RRN} apply a recurrent architecture to both user and item sequences and hence model dynamic influences in popularity of movies on users' viewing preference. \citet{SAS:2018} instead employ a self attention module for next item recommendation that adaptively learns the importance of all past items in a user's history. However, these models are limited as they do not leverage the social connections of a user.
+
+\noindent
+\emph{Social Recommendation:}
+Social recommenders integrate information from a user's social connections to mitigate data sparsity for cold-start users, i.e., users with no or minimal history. They exploit the principle of social influence theory~\cite{Tang:2009}, which states that socially connected users exert influence on each other's behavior, leading to a homophily effect: similar preferences towards items. \citet{SocialMF, SoReg} use social regularization in matrix factorization models to constrain socially connected users to have similar preferences. The recently proposed SERec~\cite{SERec} embeds items seen by the user's social neighbors as a prior in an matrix factorization model. The SBPR model~\cite{SBPR} extends the pair-wise BPR model to incorporate social signals so that users assign higher ratings to items preferred by their friends. However, these models assume equal influence among all social neighbors. TBPR~\cite{TBPR} distinguishes between strong and weak ties only when computing social influence strength.
+
+\noindent
+\emph{Socio-Temporal Recommendation:}
+Few of the recent approaches have started to look at merging temporal dependence with social influence. \citet{Cai:2017} extend Markov chain based temporal recommenders~\cite{Rendle2} by incorporating information about the last interacted item of a user's friends. This work assumes markov dependence i.e. the future item just depends on the current item. This assumption is limiting im modeling evolving user preferences.
+
+In the context of session-based recommendation, \citet{Sun:2018} propose a socially aware recurrent neural network that uses a dynamic attention network to capture social influence. On the other hand, \citet{Song:2019} use graph attention nets to model social influence on a user's behavior in the session. Both these models learn a unified user representation based on social influence with a user's temporal history.

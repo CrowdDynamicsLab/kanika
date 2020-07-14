@@ -1,0 +1,7 @@
+% !TEX root = SADR.tex
+\section{Conclusion}
+We presented a model which captures temporal changes and socio-temporal influence while taking into account item similarity and later combines them in an interpretable manner.
+We used an RNN model to capture the evolution of user preferences. We proposed an attention based user social module which aggregates historical features for all of the user's neighbors. To capture item-based homophily, we proposed an attention based item module to learn item embeddings using similar items frequently co-occurring in the platform.
+We compared our approach to a large number of temporal, social, and socio-temporal recommenders on three benchmark datasets. We report an improvement of more than 13\%
+over state-of-the-art baselines on the  Ciao and Epinions datasets for AUC metric.
+Our ablation study shows that each module is essential to capture different factors affecting user behavior in recommender systems. Further, user-temporal module is most important factor across all datasets.

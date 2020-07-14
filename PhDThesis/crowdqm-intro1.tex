@@ -1,0 +1,27 @@
+\chapter{Understanding user latent behavioral characteristics}
+
+\label{chap:reliability}
+User behavior is primarily represented using discrete actions like items purchased in the platform, actions performed in the social network or question/answers posted in a CQA forum. However, there is abundant information available in the form of textual content associated with most of these user actions, such as review text or answer text. Analysis of the textual content associated with these actions can provide an in-depth understanding of user preferences.
+To this end, in this chapter, we estimate latent user behavior--aspect-based reliability by exploiting the semantic similarity between user provided answers and questions. This latent reliability is in turn used to infer trustworthiness of answers in a CQA forum
+\cite{crowdqm} \footnote{This is a joint work with Alex Morales. I was responsible for the conceptualization, experiments and writing. He took care of the idea conceptualization, data collection, model implementation and writing.}.
+\section{Overview}
+\label{crowdsec:intro}
+
+Users are increasingly turning to community discussion forums to solicit domain expertise, such as querying about inscrutable political events on history forums or posting a health-related issue to seek medical suggestions or diagnosis.
+While these forums may be useful, due to almost no regulations on post requirements or user background, most responses contain conflicting and unreliable information~\cite{li2017crowdsourced}. This misinformation could lead to severe consequences, especially in health-related forums, that outweigh the positive benefits of these communities. Currently, most of the current forums either employ moderators to curate the content or use community voting. However, both of these methods are not scalable \cite{gilbert2013widespread}. This creates a dire need for an automated mechanism to estimate the trustworthiness of the responses in the online forums.
+
+In general, the answers written by reliable users tend to be more trustworthy, while the users who have written trustworthy answers are more likely to be reliable. This mutual reinforcement, also referred as the truth discovery principle, is leveraged by previous works that attempt to learn information trustworthiness in the presence of noisy information sources with promising results~\cite{Zhao:2012,Yin:2007,Galland:2010,Dong:2009}. This data-driven principle particularly works for community forums as they tend to be of large scale and exhibit redundancy in the posts and comments.
+
+Community discussion forums encompass various topics, or aspects. A significant deficiency of previous work is the lack of aspect-level modeling of a user's reliability.
+This heterogeneity is especially true for discussion forums, like Reddit, with communities catering to broad themes; while within each community, questions span a diverse range of sub-topics. Intuitively, a user's reliability will be limited to only a few topics, for instance, in a science forum, a biologist could be highly knowledgeable, and in turn reliable, when she answers biology or chemistry-related questions but may not be competent enough for linguistic queries.
+
+Another challenge is the diversity of word expressions in the responses. Truth discovery based approaches treat each response as categorical data. However, in discussion forums, users' text responses can include contextually correlated comments~\cite{zhang2018texttruth}. For instance, in the \emph{context} of a post describing symptoms like ``headache'' and ``fever'', either of the related responses of a viral fever or an allergic reaction can be a correct diagnosis. However, unrelated comments in the post should be unreliable; for instance, a comment giving a diagnosis of ``bone fracture'' for the above symptoms.
+
+CrowdQM addresses both limitations by jointly modeling the aspect-level user reliability and latent trustworthy comment in an optimization framework.
+In particular,
+1) CrowdQM learns user reliability over fine-grained topics discussed in the forum.
+2) Our model captures the semantic meaning of comments and posts through word embeddings.
+We learn a trustworthy comment embedding for each post, such that it is semantically similar to comments of reliable users on the post and also similar to the post's context. Contrary to the earlier approaches \cite{Quality2008,barron2015thread,Mihaylova2019semeval}, we propose an \emph{unsupervised model} for comment trustworthiness that does not need labeled training data.
+
+We verified our proposed model on the trustworthy comment ranking task for three Ask* \textit{subreddit communities}. Our model outperforms state-of-the-art baselines in identifying the most trustworthy responses, deemed by community experts and community consensus.
+We also show the effectiveness of our aspect-based user reliability estimation and word embeddings qualitatively. Furthermore, our improved model of reliability enables us to identify reliable users per topic discussed in the community.

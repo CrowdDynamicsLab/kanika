@@ -1,0 +1,11 @@
+\section{Problem Formulation}
+\label{sec:problem}
+In Community Question Answer (CQA) forums, an individual asking a question seeks to identify the most relevant candidate answer to his question. On Stack-Exchange CQA forums, users annotate their preferred answer as ``accepted.''
+
+Let $\mathcal{Q}$ denote the set of questions in the community and for each $q \in \mathcal{Q}$, we denote $\mathcal{A}_q$ to be the associated set of answers. Each question $q \in \mathcal{Q}$, and each answer $a \in \mathcal{A}_q$ has an author $u_q, u_a \in \mathcal{U}$ respectively. Without loss of generality, assume that we can extract features for each question $q$, each answer $a \in \mathcal{A}_q$, user $u_q, u_a \in \mathcal{U}$.
+
+Our unit of analysis is a question-answer tuple $(q,a), q \in \mathcal{Q}, a \in \mathcal{A}_q$, and we associate each $(q,a)$ tuple with a label $y_{q,a} \in \{-1,+1\}$, where `+1' implies acceptance and `-1' implies rejection.
+
+\begin{quote}
+    The goal of this paper is to develop a framework to identify the accepted answer to a question posted on a CQA forum.
+\end{quote}

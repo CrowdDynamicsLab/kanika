@@ -1,0 +1,10 @@
+In Communutiy Q\&A forums, the past few decades have witnessed plenty of works targeting on Answer Selection. Based on the proposed models, previous literature can be divided into two main paradigms: feature-driven models and deep text models.
+
+\noindent
+\emph{Feature-Driven Model \cite{BurelMA16,  JendersKN16, TianZL13, TianL16}:}
+Feature-driven models \cite{BurelMA16} develop features from three different perspectives: user features, content features, and thread features.
+These features are fed into classifiers, such as tree-based models \cite{BurelMA16, JendersKN16, TianZL13} to identify the best answer. \citet{TianZL13} found that the best answer is usually the earlier and most different one, and tends to have more details and comments. \citet{JendersKN16} trained several classifiers for online MOOC forums. Different from existing works, \citet{BurelMA16} emphasize on the thread-like structure of Q\&A and introduce four thread-based normalization methods. These models predict the answer label independently of the other answers for the question.
+
+\noindent
+\emph{Deep Text Models \cite{ZhangLSW17, WuWS18, WangN15, SukhbaatarSWF15}:} Text-based deep learning models learn an optimal representation of QA text pairs to select the best answer. \citet{FengXGWZ15} augment CNN with discontinuous convolution for a better vector representation; \citet{WangN15} uses a stacked biLSTM to match question and answer semantics.
+Text-based models take longer to train and are computationally expensive.

@@ -1,0 +1,130 @@
+\chapter{Introduction}
+\label{chapter:introduction}
+
+Artificial Intelligence (AI) is a branch of computer science research that deals with the development of machines with intelligence rivaling those of humans. In other words, machines that can perform tasks that generally require human intelligence, such as visual perception, decision-making, speech recognition, and more.
+Most of the current AI research is task-driven and has achieved or, in some cases, even surpassed human intelligence \cite{devlin2019bert, GoogleNet, PRelu, AlphaGo}. This advancement has resulted in the assimilation of AI into our life inadvertently, in the form of \emph{socio-technical} systems around us. These intelligent systems provide self-paced learning in the education sector \cite{education}, enable targeted marketing in e-commerce websites \cite{targeted}, facilitate personalized medicare unique to patient's body type, genetics, and lifestyle \cite{medicine} and even predict repeat crime incidence for bail seeking convicts \cite{bail}.
+
+The success of these intelligent machines lies in the fact that they can understand and model complex human behavior effectively and use it to extend highly personalized solutions at scale.
+Interactions or activities performed by the user on a specific platform characterize their behavior. For instance, in an e-commerce platform, activities denote items purchased by the user. Similarly, in a Community Question Answering (CQA) forum like StackExchange or Reddit, these activities are defined as posting questions or answers or voting on other user's answers.
+Artificial Intelligence, or specifically user behavior modeling, sifts through vast amounts of past user data to find recurring patterns and predict user's future purchases, search intent, or information need \cite{search, SAS:2018, beutel}.
+
+There are still many challenges abound to accurate modeling of user behavior.
+These challenges primarily arise because humans are imperfect sensors of information. They do not necessarily conform to repetitive patterns and can be unpredictable. The user's behavior also tends to evolve. Besides, users are biased as they tend to get influenced by other users, their environment, or even exhibit unconscious biases. With that being said, the current scenario also affords many more opportunities that were not present before. First, due to the close intertwining of the technology with our lifestyle, we have abundant user interaction data available to us now, more than ever before. These vast reserves of longitudinal data can help the models to learn the nuances in the user behavior with more traces of behavioral change over time. Second, they are further aided by the concurrent improvements in computing power and computational techniques, such as deep neural networks, that can learn higher-degree polynomial functions needed to model and understand complex user behavior.
+
+The philosophy of achieving at par human intelligence through AI is, in essence, to first understand how humans process and extract knowledge from their environment and then emulate that in machines. Thus, to build a comprehensive user behavior model, we need to both \emph{understand} their online behavior and use the learned insights to accurately \emph{model} the user activity data in the platform.
+
+Recently proposed Deep Neural Networks (DNNs) are the class of AI algorithms that employ multiple layers to progressively extract more abstract and composite representations from the raw input, thus, removing the need for feature engineering. DNNs have also beaten human benchmarks in many language understanding and visual perception tasks \cite{gilbert2013widespread, GoogleNet}, but they are notorious for being uninterpretable.
+The model interpretability is highly desirable as these models are used increasingly in sensitive and impactful domains like law and health.
+Owing to the demand for explainable models, a recent class of works advocates using simple \emph{interpretable} models such as decision trees, linear regression for these domains \cite{learning}. On the other hand, model-agnostic approaches are also developed for interpreting these black-box neural models with techniques like feature importance or explaining individual predictions \cite{lime, interpretable}.
+However, it is still challenging to achieve the dual objective of \emph{interpretability} and high \emph{precision} in a single model.
+It thus creates a dichotomy between creating simpler models that offer a more in-depth understanding of the behavior versus using the advanced computational techniques
+to capture behavioral uncertainties accurately.
+
+
+\section{User Behavior Modeling}
+The overall aim of this dissertation is to achieve both \emph{understanding} and an accurate \emph{modeling} of user behavior.
+However, it is not easy to build \emph{interpretable} models that aid in understanding users and are also \emph{sophisticated} enough to capture behavior nuances precisely.
+Thus, we propose to view the problem of user behavior modeling from multiple angles. Each perspective will lead us to a different class of solutions, all of them bringing us closer to the overall goal of improved user behavior modeling.
+
+\subsection{Understanding user behavior}
+An abundance of user activity data online presents tremendous opportunities to analyze user behavior unhindered in the real world. This activity data also often spans thousands or millions of users; a scale never achievable in field experiments. This opportunity has led to the emergence of an interdisciplinary field known as \emph{computational social science} that brought social scientists and computer scientists together. Researchers in this field use computational techniques to investigate behavioral relationships and social interactions in online platforms \cite{womenwiki, evaluating}. They typically assess the validity of previous social science theories to understand user online behavior at scale.
+
+The first and foremost perspective, thus, draws from the field of computational social science. The works following this perspective should use advances in computational techniques to process vast amounts of user data and extract meaningful and comprehensible patterns of user behavior. These models, primarily aiming at providing an in-depth understanding of user behavior, thus fall into the category of \emph{interpretable} models. This interpretability often comes at the expense of model precision.
+
+These models can also provide an excellent framework to perform additional hypothesis testing of correlation of user's behavior with other covariates that can be possibly predictive of their behavior. For instance, we can empirically test hypotheses like do changes in the posting pattern of a StackExchange user affect the upvotes their answers get? Furthermore, does that subsequently affect their activity level in the platform? These findings can be beneficial for moderators of the online communities to devise incentivization strategies to retain active users in the platform. Another interesting hypothesis worth investigating can be the correlation of change in the publication behavior of scholars with the amount of research grants awarded to them. These findings can be particularly attractive to grant-awarding institutions to ascertain any potential biases or merits in their current grant-awarding scheme.
+
+Apart from discrete user activity data, there are massive amounts of multimodal user interaction data available in these platforms such as text, video, speech, etc.
+User-generated textual data is the most popular form of interaction among them. Textual data is prevalent on multiple platforms such as reviews in e-commerce websites, questions, or answers text on CQA forums, tweets, or posts on social media platforms like Twitter or Facebook.
+
+Textual data is more complex and sophisticated to comprehend than discrete activity features. Nevertheless, analyzing textual data opens the door to \emph{understanding} the extensive and latent characteristics of user behavior that are not even possible to comprehend with activity features. For instance, the text of user reviews can be used to learn user affinity to different aspects of the product, such as relative importance of different aspects-food, service, location of a restaurant for a particular user.
+Similarly, the text of the user's answers or questions in a CQA forum can be used to discern latent features like the user's preferable topics to answer or their expertise for different topics. Prior works have leveraged the text of user's tweets or posts to understand user's political leanings \cite{political}, state of their mental health \cite{mentalhealth}, and much more. Thus, it is imperative to leverage user-generated content to create a comprehensive understanding of user behavior.
+
+Finally, works following this line of research should build interpretable models using extensive user data to provide an in-depth understanding of user behavior at scale.
+
+\subsection{Improving user behavioral models}
+The technological advancement in precise modeling of user behavior has afforded us with the seamless integration of AI into our lives. These intelligent systems provide \emph{personalized} solutions at scale in sectors as diverse as e-commerce to education to medicine. Another complementary usage of creating powerful behavioral models is the ability to identify deviant users or even credible users on the platform. This outcome is highly desirable in the current circumstances, with the rise in illegitimate use of technology.
+
+The second perspective, thus, mainly deals with
+pushing the performance boundaries of the state-of-the-art user behavioral models.
+Specifically, the solutions following this line of research strive to capture a comprehensive picture of user behavior by factoring in the myriad explicit and implicit influences on users. These methods can draw from a large body of social science research about user behavior in real-life settings. Note that the first perspective also deals with evaluating these theories in the online data traces with the primary aim of interpretability. As noted earlier, interpretability often occurs at the cost of model precision.
+On the contrary, the primary aim of this line of research is to build sophisticated behavioral models that can predict future user behavior accurately. In fact, the second perspective follows from the first one as it can leverage an improved understanding of the user's online behavior to build precise behavioral models.
+
+The works following this line of research need to tackle multiple challenges posed to accurate behavioral modeling. For instance, a user's behavior tends to evolve with experience. Similarly,  a user's friends, peers, or in general, other users with a similar background (demography, preferences, etc.) often influence their behavior. It is now possible to computationally model these effects due to the availability of extensive user interaction data on the online platforms. For instance, long-term user data provides the opportunity to model patterns of change in user behavior with time. Similarly, user-to-user influences manifest in many of the current online platforms due to their prevalent social structures. Connected users, i.e., users with established trust or friend relationships on these platforms, are empirically shown to exhibit similar behavior online, a phenomenon popularly known as user homophily \cite{Tang:2009}.
+
+Further, users hold an unconscious bias towards users with a similar background; a phenomenon also reverberated online. For instance, a user may trust movie recommendations of another user with similar demographics (same age or gender). Similarly, an Indian user may trust the ratings of another Indian user more than a non-Indian user when evaluating an Indian restaurant. Thus, it is crucial to capture these implicit influences
+between users who are alike based on general notions of similarity, such as demography or activity in the platform.
+Capturing the implicit influence is more complicated than explicit influence, but it can provide vital cues for predicting the behavior of users with \emph{few} social connections.
+They can also be particularly helpful in online platforms with no established social structure such as review platforms or CQA forums.
+
+Thus, the creation of models that capture the explicit and implicit influences on users efficiently and at scale is prudent to bring advancement in the field of user behavior modeling.
+
+\subsection{Incorporating user behavior as metadata to improve complementary tasks}
+Most of the current research related to user behavior modeling intends to model or predict user behavior primarily.
+However, there are related tasks pertinent to the estimation of characteristics of the user-generated content in the online platforms.
+Some of the examples of such related tasks are estimating the quality, credibility, or profanity of the content online.
+
+Current work solving these tasks merely exploits the data features and completely ignores the user information. Users are the creators of the content, and their behavior remains broadly consistent across the platform. Thus, adding contextual information about user behavior estimated from their actions in the platform can immensely improve the prediction task.
+For instance, current models proposed for prediction tasks like credible answer selection on CQA forums or hate speech prediction utilize the semantic meaning of the text to make such predictions \cite{zhang2018texttruth, elsherief2018hate}. However, user expertise estimated through their prior answers on the platform can be used to differentiate between users. This differentiation can consequently help to rank user-provided answers based on their trustworthiness.
+Similarly, the abusive behavior of users estimated from their prior content can provide a useful precedent when predicting the offensive nature of their new content. Furthermore, utilizing user homophily, behavioral priors of users can be shared amongst explicitly and implicitly similar users.
+
+Thus, in this perspective, we propose to build models that leverage information about commonalities and disparities in user behavior to improve prediction tasks about user-generated content.
+
+\noindent
+\section{Thesis Contributions}
+We outlined three different perspectives to solve the problem of user behavior modeling.
+These different perspectives are in no means comprehensive. However, they pave a viable way to ultimately develop models than can attain the twin goal of interpretability and precision.
+Since the field of user behavioral modeling is massive, there are numerous unsolved challenges within each perspective. In this dissertation, we propose a few foundational works under each perspective that provide potential approaches to solve these posed challenges.
+Specifically, we attempt to answer the dichotomy of understanding versus modeling user behavior by proposing interpretable models that primarily aim to provide detailed insights about user online behavior. Further, we develop frameworks to model user behavior accurately or leverage information about user behavior to improve prediction tasks related to user-generated content.
+
+\subsection{Understanding user behavior}
+Under this perspective, we propose two works, the first one that directly models user activity data to understand patterns of behavioral change and another that leverages user-generated content to understand the latent characteristics of user behavior.
+
+Firstly, in Chapter \ref{chap:evolution}, we leverage user activity data to understand the behavioral evolution of individuals with experience.
+We introduce an interpretable Gaussian Hidden Markov Model (G-HMM) cluster model to identify archetypes of evolutionary patterns among users.
+Specifically, we apply our model to discover archetypical patterns of research interests' evolution among Academics and patterns of change in activity distribution of users of Stack Exchange communities. Our model allows us to correlate user behavior with external variables such as gender, income, etc.
+
+In \Cref{chap:reliability}, we leverage the content of the user's answers in CQA forums to learn latent characteristics of user behavior--\emph{latent reliability}. We use this latent behavior representation to solve the task of ranking answers of a given question based on its trustworthiness. This ranking is especially vital as CQA forums are crippled with rampant unreliable content on their platform due to almost no regulations on post requirements or user background. Thus, this misinformation severely limits the forum's usefulness to its users.
+
+We propose an unsupervised framework to learn the latent characteristic of user behavior--reliability and latent characteristic of answers--trustworthiness in a mutually reinforcing manner.
+In particular, our model learns a user representation vector capturing her reliability over fine-grained topics discussed in the forum. Besides, we also learn the semantic meaning of comments and posts through text-aware text representations or word embeddings.
+The learned latent representations using text affords an in-depth understanding of user reliability, improbable to comprehend using discrete activity data.
+
+
+
+\subsection{Improving user behavioral models}
+There are multiple unsolved challenges for accurate modeling of user behavior online.
+In this dissertation, we focus on capturing the user-to-user influence to improve user behavioral models.
+These influences can be either explicit in terms of social connections present in the platform itself or implicit in the absence or sparsity of established social connections.
+We propose to capture the implicit social influence, measured either through similarity or contrast in users' behaviors, by inducing connections between them. These connections enable information sharing among connected users resulting in an improved model of their behavior.
+
+We use \emph{Graph Convolution Networks} (GCN) \cite{gcn} to model both explicit social connections and induced connections between users.
+GCN is a recent class of neural networks that learns node representations in graph-structured data. Specifically, the model aggregates representations of the node itself, along with its neighbors, to compute a node representation. The model is very efficient with parallel batch processing and sparse computations. Thus, it can scale to large scale user graphs present on online platforms.
+
+Recommender Systems have previously exploited the user homophily (similar behavior) between connected users to provide improved recommendations to their users \cite{Diffnet, SBPR, GRU4Rec}.
+Thus, in Chapter \ref{chap:social}, we propose to incorporate the effect of \emph{user-to-user influence} on the user's behavior in a recommender system.
+In this work,
+we exploit homophily in both user and item space.
+In the user space, apart from a user's explicit social connections in the platform, we also induce connections between users with a similar purchasing history.
+In the item space, we construct a 'social graph of items' based on similarity in item features and co-occurrence in the dataset.
+These implicit similarity connections between items help the model to handle data sparsity in items (long-tail items, i.e., items with limited training data).
+
+We propose a novel graph attention-based aggregation models to estimate social influence in both user social and item similarity graphs. Besides, we also learn explicit attention weights for each pair of connected nodes to capture varying influence strengths on the behavior. We finally propose an interpretable aggregation approach to combine the different factors influencing user preferences.
+
+\subsection{Incorporating user behavior as metadata to improve complementary tasks}
+Under this perspective, we leverage user behavior information to aid in two diverse prediction tasks related to user-generated content. In addition, we propose distinct techniques to include user behavioral information for each task. The first approach incorporates the user behavioral information by inducing connections amongst user-generated content. Induced connections aid in information sharing resulting in improved predictions. The second technique, on the other hand, learns powerful user representations encapsulating users' behavior. We subsequently use these representations in addition to the textual features to improve the prediction task.
+
+CQA forums suffer from abundant low quality content and answer selection task, thus, aims at identifying the best answer out of the given answers to a question. Current approaches predict answer quality in isolation of the other answers to the question and user activity across the forum (other posted questions or answers).
+Thus, in \Cref{chap:induced},
+we induce connections based on both similarity and contrast between users' behavior (answers) to share user behavioral information among answers.
+
+Specifically, we induce a contrastive graph between user-provided answers replying to the same question and a similarity graph between answers across different questions if the replying users are exhibiting similar behavior. We also propose a modification to the original GCN to encode the notion of contrast between a node and its neighborhood.
+Besides, we use state-of-the-art text representation learning approaches to compute representation for the user's answers and questions. We subsequently induce connections between user-generated answers based on these text representations.
+Finally, multiple graphs expressing semantically diverse relationships are merged through an efficient boosting architecture to predict the best answer.
+
+Thereafter, in \Cref{chap:syntactic}, we work on
+leveraging textual features along with user features
+to detect the offensive language in tweets. Abusive behavior is rampant online and is affecting the experience of a large number of users on the platform. Hate attacks are often expressed in a sophisticated manner in the text (long clauses or complex scoping); thus, traditional sequential neural models are unable to capture them effectively.
+In this work, we learn an improved text representation of the tweets
+by leveraging syntactic dependencies between words.
+We achieve this by inducing a graph on the words of a tweet where edges represent a dependency relationship. We use these representations subsequently to estimate a user's latent abusive behavior, i.e., their likelihood of using offensive language online.
+Further, to capture homophily in abusive user accounts, we propagate this latent behavior through the user's social graph on Twitter. This user behavior information, in addition to the improved text representation of the tweet, dramatically improves the performance of offensive language detection models.

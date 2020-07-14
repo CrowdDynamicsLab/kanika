@@ -1,0 +1,112 @@
+\vspace {1cm}
+\contentsline {chapter}{CHAPTER\ 1\hskip 1em\relax \MakeUppercase {Introduction}}{1}% 
+\contentsline {section}{\numberline {1.1}User Behavior Modeling}{2}% 
+\contentsline {subsection}{\numberline {1.1.1}Understanding user behavior}{2}% 
+\contentsline {subsection}{\numberline {1.1.2}Improving user behavioral models}{4}% 
+\contentsline {subsection}{\numberline {1.1.3}Incorporating user behavior as metadata to improve complementary tasks}{5}% 
+\contentsline {section}{\numberline {1.2}Thesis Contributions}{5}% 
+\contentsline {subsection}{\numberline {1.2.1}Understanding user behavior}{6}% 
+\contentsline {subsection}{\numberline {1.2.2}Improving user behavioral models}{7}% 
+\contentsline {subsection}{\numberline {1.2.3}Incorporating user behavior as metadata to improve complementary tasks}{7}% 
+\contentsline {chapter}{CHAPTER\ 2\hskip 1em\relax \MakeUppercase {Literature Review}}{9}% 
+\contentsline {section}{\numberline {2.1}Online Social Networks}{9}% 
+\contentsline {section}{\numberline {2.2}Recommender Systems}{10}% 
+\contentsline {section}{\numberline {2.3}Scholarly Data}{11}% 
+\contentsline {section}{\numberline {2.4}Community Question Answering Forums}{12}% 
+\contentsline {section}{\numberline {2.5}Twitter}{14}% 
+\contentsline {section}{\numberline {2.6}Graph Convolution Networks}{15}% 
+\contentsline {chapter}{CHAPTER\ 3\hskip 1em\relax \MakeUppercase {Discovering archetypes of behavioral evolution}}{16}% 
+\contentsline {section}{\numberline {3.1}Overview}{16}% 
+\contentsline {section}{\numberline {3.2}Modeling Evolution Trajectories}{20}% 
+\contentsline {subsection}{\numberline {3.2.1}Data Collection}{20}% 
+\contentsline {subsection}{\numberline {3.2.2}Problem Definition}{21}% 
+\contentsline {subsection}{\numberline {3.2.3}A Framework for Identifying Archetypes}{23}% 
+\contentsline {section}{\numberline {3.3}Result Analysis}{25}% 
+\contentsline {subsection}{\numberline {3.3.1}Discovered Archetypes of Academics}{25}% 
+\contentsline {subsection}{\numberline {3.3.2}Archetype variations across Gender}{29}% 
+\contentsline {subsection}{\numberline {3.3.3}Grant income variability across Archetypes \& gender within an Archetype}{31}% 
+\contentsline {subsection}{\numberline {3.3.4}StackOverflow Archetypes}{34}% 
+\contentsline {section}{\numberline {3.4}Quantitative Experiments}{35}% 
+\contentsline {subsection}{\numberline {3.4.1}Baselines}{36}% 
+\contentsline {subsection}{\numberline {3.4.2}Tasks}{36}% 
+\contentsline {section}{\numberline {3.5}Conclusion}{39}% 
+\contentsline {chapter}{CHAPTER\ 4\hskip 1em\relax \MakeUppercase {Understanding user latent behavioral characteristics}}{40}% 
+\contentsline {section}{\numberline {4.1}Overview}{40}% 
+\contentsline {section}{\numberline {4.2}Methodology}{41}% 
+\contentsline {subsection}{\numberline {4.2.1}Problem Formulation}{42}% 
+\contentsline {subsection}{\numberline {4.2.2}Proposed Method}{42}% 
+\contentsline {subsection}{\numberline {4.2.3}Solving the Optimization Problem}{44}% 
+\contentsline {paragraph}{Case 1:}{45}% 
+\contentsline {paragraph}{Case 2:}{45}% 
+\contentsline {paragraph}{Case 3:}{45}% 
+\contentsline {section}{\numberline {4.3}Experiments}{46}% 
+\contentsline {subsection}{\numberline {4.3.1}Dataset}{46}% 
+\contentsline {subsection}{\numberline {4.3.2}Experimental Setup}{48}% 
+\contentsline {subsection}{\numberline {4.3.3}Results}{50}% 
+\contentsline {subsection}{\numberline {4.3.4}Model Convergence}{52}% 
+\contentsline {section}{\numberline {4.4}Discussion}{52}% 
+\contentsline {subsection}{\numberline {4.4.1}Aspect Reliability Analysis}{52}% 
+\contentsline {subsection}{\numberline {4.4.2}Word Embedding Analysis}{56}% 
+\contentsline {section}{\numberline {4.5}Conclusion}{57}% 
+\contentsline {chapter}{CHAPTER\ 5\hskip 1em\relax \MakeUppercase {Modeling user-to-user influence on user behavior}}{58}% 
+\contentsline {section}{\numberline {5.1}Overview}{58}% 
+\contentsline {section}{\numberline {5.2}Proposed Method}{61}% 
+\contentsline {subsection}{\numberline {5.2.1}Overall Architecture}{61}% 
+\contentsline {subsection}{\numberline {5.2.2}User-Temporal Module}{63}% 
+\contentsline {subsection}{\numberline {5.2.3}User-Social Module}{66}% 
+\contentsline {subsection}{\numberline {5.2.4}Item-Similarity Module}{67}% 
+\contentsline {subsection}{\numberline {5.2.5}Training}{68}% 
+\contentsline {section}{\numberline {5.3}Experiments}{69}% 
+\contentsline {subsection}{\numberline {5.3.1}Datasets}{69}% 
+\contentsline {subsection}{\numberline {5.3.2}Evaluation Protocol}{70}% 
+\contentsline {subsection}{\numberline {5.3.3}Baselines}{71}% 
+\contentsline {subsection}{\numberline {5.3.4}Performance Analysis}{73}% 
+\contentsline {subsection}{\numberline {5.3.5}Module Analysis}{75}% 
+\contentsline {subsection}{\numberline {5.3.6}Cold-Start Analysis}{78}% 
+\contentsline {subsection}{\numberline {5.3.7}Parameter Sensitivity}{79}% 
+\contentsline {subsection}{\numberline {5.3.8}Induced relationships}{80}% 
+\contentsline {section}{\numberline {5.4}Conclusion}{81}% 
+\contentsline {chapter}{CHAPTER\ 6\hskip 1em\relax \MakeUppercase {Modeling relational aspects of user-generated content}}{82}% 
+\contentsline {section}{\numberline {6.1}Overview}{82}% 
+\contentsline {section}{\numberline {6.2}Problem Formulation}{85}% 
+\contentsline {section}{\numberline {6.3}Induced Relational Views}{85}% 
+\contentsline {subsection}{\numberline {6.3.1}Constructing Induced Views}{85}% 
+\contentsline {subsection}{\numberline {6.3.2}Generalized Views}{88}% 
+\contentsline {section}{\numberline {6.4}Induced Relational GCN}{89}% 
+\contentsline {subsection}{\numberline {6.4.1}Graph Convolution}{89}% 
+\contentsline {subsection}{\numberline {6.4.2}Contrastive Graph Convolution}{90}% 
+\contentsline {subsection}{\numberline {6.4.3}Encoding Similarity Convolution}{92}% 
+\contentsline {section}{\numberline {6.5}Aggregating Induced Views}{94}% 
+\contentsline {section}{\numberline {6.6}Experiments}{98}% 
+\contentsline {subsection}{\numberline {6.6.1}Dataset}{99}% 
+\contentsline {subsection}{\numberline {6.6.2}Experimental Setup}{101}% 
+\contentsline {subsection}{\numberline {6.6.3}Performance Analysis}{104}% 
+\contentsline {section}{\numberline {6.7}Discussion}{106}% 
+\contentsline {subsection}{\numberline {6.7.1}Ablation Study on Relation Types}{106}% 
+\contentsline {subsection}{\numberline {6.7.2}Aggregator Architecture Variants}{107}% 
+\contentsline {subsection}{\numberline {6.7.3}Discriminative Magnification effect}{107}% 
+\contentsline {subsection}{\numberline {6.7.4}Label Sparsity}{109}% 
+\contentsline {subsection}{\numberline {6.7.5}Including Textual Features}{110}% 
+\contentsline {subsection}{\numberline {6.7.6}Contrastive GCN Analysis}{112}% 
+\contentsline {subsection}{\numberline {6.7.7}Limitations}{113}% 
+\contentsline {section}{\numberline {6.8}Conclusion}{114}% 
+\contentsline {chapter}{CHAPTER\ 7\hskip 1em\relax \MakeUppercase {Joint Modeling of user latent behavioral and content representations}}{115}% 
+\contentsline {section}{\numberline {7.1}Overview}{115}% 
+\contentsline {section}{\numberline {7.2}Proposed Method}{117}% 
+\contentsline {subsection}{\numberline {7.2.1}Graph representation of Text}{117}% 
+\contentsline {subsection}{\numberline {7.2.2}Sentence representation}{119}% 
+\contentsline {subsection}{\numberline {7.2.3}Embedding variants}{119}% 
+\contentsline {subsection}{\numberline {7.2.4}User Features}{120}% 
+\contentsline {section}{\numberline {7.3}Experiments}{121}% 
+\contentsline {subsection}{\numberline {7.3.1}Experimental Setup}{122}% 
+\contentsline {subsection}{\numberline {7.3.2}Performance Analysis:}{124}% 
+\contentsline {subsection}{\numberline {7.3.3}Error Analysis of Sequential vs. Dependency model}{126}% 
+\contentsline {subsection}{\numberline {7.3.4}Effect of User Social Graph}{128}% 
+\contentsline {section}{\numberline {7.4}Conclusion}{129}% 
+\contentsline {chapter}{CHAPTER\ 8\hskip 1em\relax \MakeUppercase {Conclusion}}{130}% 
+\contentsline {section}{\numberline {8.1}Research Contributions}{130}% 
+\contentsline {subsection}{\numberline {8.1.1}Understanding user behavior}{130}% 
+\contentsline {subsection}{\numberline {8.1.2}Improving user behavioral models}{131}% 
+\contentsline {subsection}{\numberline {8.1.3}Leveraging user behavior to improve task performance}{132}% 
+\contentsline {section}{\numberline {8.2}Future Work}{132}% 
+\contentsline {chapter}{\MakeUppercase {REFERENCES}}{135}% 

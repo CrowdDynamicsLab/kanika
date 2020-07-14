@@ -1,0 +1,30 @@
+
+\noindent
+\textbf{Datasets:}
+\citet{wiegand-etal-2019-detection} emphasizes the difficulty of selecting representative datasets for studying abusive language. At the heart of this difficulty is the relative rarity of hate speech in the large-scale user-generated text. It is not unusual for $> 99\%$ of text to be benign.
+
+To make experiments manageable \citet{waseem-hovy-2016}
+bootstrap data collection with queries that are indicators of possible hate speech. As a result of this bootstrapping, the data collected is {\em not} representative of the underlying text distribution. This {\em data bias} applies to both the benign and the offensive categories.
+
+\citet{davidson2017automated} provides an alternative dataset, but this, too, is affected by pre-filtering, with the result that the dataset also fails to represent the underlying text distribution. Thus, caution is advised when interpreting the results of studies on these datasets. \citet{wiegand-etal-2019-detection} suggests several mitigations for the deficiencies of these datasets, as well as cross-classification methods that can sometimes diagnose over-optimism about classification results.
+
+For comparability, we experiment with both the datasets from \citet{davidson2017automated} and \citet{waseem-hovy-2016}.
+We do not claim that our results will necessarily transfer to more naturalistic settings. \Cref{tab:data} lists the per class distribution in the collected dataset. Note that as previously noted, \citet{davidson2017automated} dataset is highly skewed, with the majority of tweets being offensive. We thus also create a custom dataset (Davidson ext.) to mimic the real-world settings, by adding benign tweets from \citet{waseem-hovy-2016} to \citet{davidson2017automated}'s benign tweets.
+
+\begin{table*}[h]
+  \centering
+  \small
+\begin{tabular}{ l c c  c }
+\toprule
+ Dataset &  \multicolumn{3}{c}{{Categories}} \\
+  \midrule
+ \multirow{2}{*}{\citet{davidson2017automated}}& Hate & Offensive & Benign \\ \cline{2-4}
+              & 1,430 & 19,190 & 4,163 \\
+ \multirow{2}{*}{\citet{waseem-hovy-2016}}& Racism & Sexism & Benign \\ \cline{2-4}
+ & 1,939 & 3,148 & 11,115 \\
+ Davidson extended   &  Hate & Offensive & Benign \\ \cline{2-4}
+ & 1,430 & 19,190 & 15,278 \\
+ \bottomrule %\hline
+\end{tabular}
+\caption{\label{tab:data} Dataset Statistics. }
+\end{table*}
